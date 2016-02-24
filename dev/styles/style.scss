@@ -13,6 +13,7 @@ body {
 	max-width: 1080px;
 	width: 100%;
 	margin: 0 auto;
+
 }
 
 input[type=radio] {
@@ -32,19 +33,15 @@ input[type=radio] {
 		label[for=lisaMoore] {
 			left: 9%;
 		}
-
 		label[for=miriamToews] {
-			left:26%;
+			left: 26%;
 		}
-
 		label[for=aliceMunro] {
-			left:calc(50% - 75px);
+			left: calc(50% - 75px);
 		}
-
 		label[for=lynnCrosbie] {
 			left: 60%;
 		}
-
 		label[for=zoeWhittall] {
 			left: 77%;
 		}
@@ -55,7 +52,18 @@ input[type=radio] {
 	border: 1px solid black;
 	height: 200px;
 	width: 100%;
-	padding-left: 250px;
+	padding-left: 25%;
 	display: none;
 }
 
+.filters .wrapper {
+	padding: 3%;
+}
+
+.hover {
+	background: yellow;
+}
+
+.selected {
+	background: yellow;
+}
