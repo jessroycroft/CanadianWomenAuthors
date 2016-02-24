@@ -2,4 +2,4 @@
 *.zip
 *.psd
 *.css
-node-modules
+node_modules

@@ -57,6 +57,55 @@ app.getBookInfo = function(authorData){
 	console.log(authorProfile);
 }
 
+<<<<<<< HEAD
+app.starHover = function(){
+	$(".oneStar, .twoStar, .threeStar, .fourStar, .fiveStar ")
+	.on("mouseenter", function(){
+		$(this).addClass("hover").prevAll().addClass("hover");
+	})
+	.on("mouseleave", function(){
+		$(this).removeClass("hover").prevAll().removeClass("hover");
+	})
+	.on("click", function(){
+		app.rating = $(this).data("rating")
+		console.log(app.rating);
+		if ($(this).hasClass("selected") && ($(this).hasClass("hover")) ) {
+			$(".star").not(".hover").removeClass("selected");
+		}
+		$(this).addClass("selected").prevAll().addClass("selected");
+	});
+};
+
+app.selectAuthor = function(){
+	$("label").on("click", function(e){
+		e.preventDefault();
+		app.author = $(this).prev().val();
+		app.getAuthorID();
+		console.log(app.author);
+		$(this).siblings().hide();
+		$(this).find("p").hide();
+		$(this)
+			.css("position", "absolute")
+			.animate({
+			left: 0	
+			}, "slow")
+			.find("img").animate ({
+				width: 200,
+				height: 200,
+			}, "slow");
+		$(".authorHeading").fadeIn();
+		$(".authorHeading h2").text(app.author);
+	})
+
+	//code for reset author search link
+		// $("a").on("click",function(e){
+		// 	e.preventDefault();
+		// 	$(".box").show();
+		// 	$(".box").animate({
+		// 	}, function(){ $(this).removeAttr("style")} )
+		// })
+}
+
 app.getBookList = function(){
 	$.ajax({
 	    url: 'http://proxy.hackeryou.com',
@@ -76,35 +125,9 @@ app.getBookList = function(){
 
 app.init = function(){
 	// app.getAuthorID();
-	$("label").on("click", function(e){
-		e.preventDefault();
-		app.author = $(this).prev().val();
-		app.getAuthorID();
-		console.log(app.author);
-		$(this).siblings().hide();
-		$(this).find("p").hide();
-		$(this)
-			.css("position", "fixed")
-			.animate({
-			left: 25	
-			}, "slow")
-			.find("img").animate ({
-				width: 200,
-				height: 200,
-			}, "slow");
-		$(".authorHeading").fadeIn();
-		$(".authorHeading h2").text(app.author);
-		})
+	app.selectAuthor();
+	app.starHover();
 
-	// })
-
-	//code for reset author search link
-		// $("a").on("click",function(e){
-		// 	e.preventDefault();
-		// 	$(".box").show();
-		// 	$(".box").animate({
-		// 	}, function(){ $(this).removeAttr("style")} )
-		// })
 };
 
 
