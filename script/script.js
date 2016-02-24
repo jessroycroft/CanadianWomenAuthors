@@ -46,7 +46,13 @@ app.getAuthorInfo = function(){
 	    }
 	}).then(function(data) {
 	    console.log(data);
+	    app.getBookInfo(data);
 	});
+}
+
+app.getBookInfo = function(authorData){
+	var authorProfile = authorData.GoodreadsResponse.author.link;
+	console.log(authorProfile);
 }
 
 app.init = function(){
