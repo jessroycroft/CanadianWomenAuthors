@@ -57,7 +57,6 @@ app.getBookInfo = function(authorData){
 	console.log(authorProfile);
 }
 
-<<<<<<< HEAD
 app.starHover = function(){
 	$(".oneStar, .twoStar, .threeStar, .fourStar, .fiveStar ")
 	.on("mouseenter", function(){
@@ -95,7 +94,8 @@ app.selectAuthor = function(){
 			}, "slow");
 		$(".authorHeading").fadeIn();
 		$(".authorHeading h2").text(app.author);
-	})
+	});
+}
 
 	//code for reset author search link
 		// $("a").on("click",function(e){
@@ -104,7 +104,6 @@ app.selectAuthor = function(){
 		// 	$(".box").animate({
 		// 	}, function(){ $(this).removeAttr("style")} )
 		// })
-}
 
 app.getBookList = function(){
 	$.ajax({

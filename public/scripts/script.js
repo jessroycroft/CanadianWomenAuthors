@@ -57,7 +57,6 @@ app.getBookInfo = function (authorData) {
 	console.log(authorProfile);
 };
 
-<<<<<<< HEAD
 app.starHover = function () {
 	$(".oneStar, .twoStar, .threeStar, .fourStar, .fiveStar ").on("mouseenter", function () {
 		$(this).addClass("hover").prevAll().addClass("hover");
@@ -74,27 +73,6 @@ app.starHover = function () {
 };
 
 app.selectAuthor = function () {
-=======
-app.getBookList = function () {
-	$.ajax({
-		url: 'http://proxy.hackeryou.com',
-		dataType: 'json',
-		method: 'GET',
-		data: {
-			reqUrl: app.authorBooksUrl + app.authorID,
-			params: {
-				key: app.apiKey
-			},
-			xmlToJSON: true
-		}
-	}).then(function (data) {
-		console.log(data);
-	});
-};
-
-app.init = function () {
-	// app.getAuthorID();
->>>>>>> f7128bdee35f7660e8c4a5ec4b5783d66b0a0427
 	$("label").on("click", function (e) {
 		e.preventDefault();
 		app.author = $(this).prev().val();
@@ -111,14 +89,31 @@ app.init = function () {
 		$(".authorHeading").fadeIn();
 		$(".authorHeading h2").text(app.author);
 	});
+};
 
-	//code for reset author search link
-	// $("a").on("click",function(e){
-	// 	e.preventDefault();
-	// 	$(".box").show();
-	// 	$(".box").animate({
-	// 	}, function(){ $(this).removeAttr("style")} )
-	// })
+//code for reset author search link
+// $("a").on("click",function(e){
+// 	e.preventDefault();
+// 	$(".box").show();
+// 	$(".box").animate({
+// 	}, function(){ $(this).removeAttr("style")} )
+// })
+
+app.getBookList = function () {
+	$.ajax({
+		url: 'http://proxy.hackeryou.com',
+		dataType: 'json',
+		method: 'GET',
+		data: {
+			reqUrl: app.authorBooksUrl + app.authorID,
+			params: {
+				key: app.apiKey
+			},
+			xmlToJSON: true
+		}
+	}).then(function (data) {
+		console.log(data);
+	});
 };
 
 app.init = function () {
