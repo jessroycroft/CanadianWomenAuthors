@@ -4,7 +4,7 @@
 
 
 app = {};
-app.author = "Lisa Moore" 
+// app.author = "Lisa Moore" 
 app.apiKey = "7CgssNsOg0UlotmGhMjhg";
 app.authorSearchUrl = "https://www.goodreads.com/api/author_url/";
 app.authorInfoUrl = "https://www.goodreads.com/author/show/";
@@ -55,12 +55,14 @@ app.init = function(){
 		e.preventDefault();
 		app.author = $(this).prev().val();
 		console.log(app.author);
-		$(this).siblings().fadeOut();
+		$(this).siblings().hide();
 		$(this).find("p").hide();
-		$(this).animate({
+		$(this)
+			.css("position", "fixed")
+			.animate({
 			left: 25	
-		}, "slow");
-		$(this).find("img").animate ({
+			}, "slow")
+			.find("img").animate ({
 				width: 200,
 				height: 200,
 			}, "slow");
