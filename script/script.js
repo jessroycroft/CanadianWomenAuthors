@@ -51,6 +51,32 @@ app.getAuthorInfo = function(){
 
 app.init = function(){
 	app.getAuthorID();
+	$("label").on("click", function(e){
+		e.preventDefault();
+		app.author = $(this).prev().val();
+		console.log(app.author);
+		$(this).siblings().fadeOut();
+		$(this).find("p").hide();
+		$(this).animate({
+			left: 25	
+		}, "slow");
+		$(this).find("img").animate ({
+				width: 200,
+				height: 200,
+			}, "slow");
+		$(".authorHeading").fadeIn();
+		$(".authorHeading h2").text(app.author);
+		})
+
+	// })
+
+	//code for reset author search link
+		// $("a").on("click",function(e){
+		// 	e.preventDefault();
+		// 	$(".box").show();
+		// 	$(".box").animate({
+		// 	}, function(){ $(this).removeAttr("style")} )
+		// })
 };
 
 
