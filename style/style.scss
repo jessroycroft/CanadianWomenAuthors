@@ -1,0 +1,63 @@
+@import 'normalize.scss';
+@import 'placeholders-mixins.scss';
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	@include fontSizer(16);
+}
+
+.wrapper {
+	max-width: 1080px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+input[type=radio] {
+	display: none;
+}
+
+.main {
+	text-align:center;
+	.wrapper {
+		position: relative;
+		label {
+			display: inline-block;
+			position: absolute;
+			img {
+			// display: inline-block;
+			width:150px;
+			}
+		}
+		label[for=lisaMoore] {
+			left: 9%;
+		}
+
+		label[for=miriamToews] {
+			left:26%;
+		}
+
+		label[for=aliceMunro] {
+			left:calc(50% - 75px);
+		}
+
+		label[for=lynnCrosbie] {
+			left: 60%;
+		}
+
+		label[for=zoeWhittall] {
+			left: 77%;
+		}
+	}
+}
+
+.authorHeading {
+	border: 1px solid black;
+	height: 200px;
+	width: 100%;
+	padding-left: 250px;
+	display: none;
+}
+
