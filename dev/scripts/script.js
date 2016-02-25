@@ -65,7 +65,7 @@ app.getBookInfo = function(authorData){
 	console.log(about);
 }
 
-
+// Function to choose author/get name by clicking pictures
 app.selectAuthor = function(){
 	$("label").on("click", function(e){
 		e.preventDefault();
@@ -91,10 +91,7 @@ app.selectAuthor = function(){
 //this will be the array we will store all the authors books
 app.allBookArray = [];
 
-
-
 // Function to access list of author's books
-
 app.page = 1;
 //app.bookArray is the general array that will store the array of books passed on to display from the filter function to display and from initial ajax call to display - 
 app.bookArray = [];
@@ -119,13 +116,14 @@ app.getBookList = function(){
 			app.bookArray.push(val);
 		})
 
+		// If the number at the end of the page is equal to the total number of books, then console.log the list of books
+
 		if (data.GoodreadsResponse.author.books.end === data.GoodreadsResponse.author.books.total) {
 			books.forEach(function(val, i) {
 				app.allBookArray.push(val);
 			})
 			
 			app.bookArray = app.allBookArray;
-
 			console.log(app.bookArray);
 			app.displayBooks();
 
