@@ -10,9 +10,8 @@ app.authorSearchUrl = "https://www.goodreads.com/api/author_url/";
 app.authorInfoUrl = "https://www.goodreads.com/author/show/";
 app.authorBooksUrl = "https://www.goodreads.com/author/list/"
 
-
+// Find author's ID by searching their name
 app.getAuthorID = function(){
-
 	$.ajax({
 	    url: 'http://proxy.hackeryou.com',
 	    dataType: 'json',
@@ -34,15 +33,15 @@ app.getAuthorID = function(){
 	});
 }
 
+// Access author's Goodreads page via their author ID
 app.getAuthorInfo = function(){
-
 	$.ajax({
 	    url: 'http://proxy.hackeryou.com',
 	    dataType: 'json',
 	    method:'GET',
 	    data: {
 	        reqUrl: app.authorInfoUrl + app.authorID,
-			params : {
+			params: {
 				key: app.apiKey
 			},
 	        xmlToJSON: true
@@ -53,11 +52,20 @@ app.getAuthorInfo = function(){
 	});
 }
 
+// Get author's bio information from their Goodreads profile
 app.getBookInfo = function(authorData){
+	// Author's Goodreads profile link
 	var authorProfile = authorData.GoodreadsResponse.author.link;
 	console.log(authorProfile);
+	// Author's hometown
+	var authorHometown = authorData.GoodreadsResponse.author.hometown;
+	console.log(authorHometown);
+	// Author's Goodreads bio
+	var about = authorData.GoodreadsResponse.author.about;
+	console.log(about);
 }
 
+// Handlebars template to display books
 app.displayBooks = function(){
 	$("#books").empty();
 	var bookHtml = $("#authorTemplate")
@@ -68,7 +76,7 @@ app.displayBooks = function(){
 }
 
 
-
+// Function to choose author/get name by clicking pictures
 app.selectAuthor = function(){
 	$("label").on("click", function(e){
 		e.preventDefault();
@@ -92,7 +100,7 @@ app.selectAuthor = function(){
 }
 
 
-
+// Function to access list of author's books
 app.page = 1;
 app.bookArray = [];
 
@@ -116,9 +124,10 @@ app.getBookList = function(){
 		books.forEach(function(val, i){
 			app.bookArray.push(val);
 		})
-
+		// If the number at the end of the page is equal to the total number of books, then console.log the list of books
 		if (data.GoodreadsResponse.author.books.end === data.GoodreadsResponse.author.books.total) {
 			console.log(data.GoodreadsResponse.author.books);
+		// Otherwise, add one to app.page and run the function again.
 		} else { 
 		app.page++;
 		app.getBookList();
