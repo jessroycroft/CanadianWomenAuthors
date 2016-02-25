@@ -10,6 +10,7 @@ app.authorSearchUrl = "https://www.goodreads.com/api/author_url/";
 app.authorInfoUrl = "https://www.goodreads.com/author/show/";
 app.authorBooksUrl = "https://www.goodreads.com/author/list/"
 
+
 app.getAuthorID = function(){
 
 	$.ajax({
@@ -97,6 +98,43 @@ app.selectAuthor = function(){
 	});
 }
 
+app.page = 1;
+app.bookArray = [];
+
+app.getBookList = function(){
+	$.ajax({
+	    url: 'http://proxy.hackeryou.com',
+	    dataType: 'json',
+	    method: 'GET',
+	    data: {
+	        reqUrl: app.authorBooksUrl + app.authorID,
+			params: {
+				key: app.apiKey,
+				page: app.page
+			},
+	        xmlToJSON: true
+	    }
+	}).then(function(data) {
+		console.log(data);
+		// app.bookArray.push(data.GoodreadsResponse.author.books.book);
+		var thing = data.GoodreadsResponse.author.books.book;
+
+		thing.forEach(function(val, i){
+			app.bookArray.push(val);
+		})
+
+		if (data.GoodreadsResponse.author.books.end === data.GoodreadsResponse.author.books.total) {
+			console.log(data.GoodreadsResponse.author.books);
+		} else { 
+		app.page++;
+		app.getBookList();
+	    console.log(data.GoodreadsResponse.author.books.end);
+		};
+		console.log(app.bookArray);
+	});
+};
+ //Close function
+
 	//code for reset author search link
 		// $("a").on("click",function(e){
 		// 	e.preventDefault();
@@ -105,22 +143,6 @@ app.selectAuthor = function(){
 		// 	}, function(){ $(this).removeAttr("style")} )
 		// })
 
-app.getBookList = function(){
-	$.ajax({
-	    url: 'http://proxy.hackeryou.com',
-	    dataType: 'json',
-	    method:'GET',
-	    data: {
-	        reqUrl: app.authorBooksUrl + app.authorID,
-			params : {
-				key: app.apiKey
-			},
-	        xmlToJSON: true
-	    }
-	}).then(function(data) {
-	    console.log(data);
-	});
-}
 
 app.init = function(){
 	// app.getAuthorID();

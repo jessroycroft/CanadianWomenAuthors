@@ -91,13 +91,8 @@ app.selectAuthor = function () {
 	});
 };
 
-//code for reset author search link
-// $("a").on("click",function(e){
-// 	e.preventDefault();
-// 	$(".box").show();
-// 	$(".box").animate({
-// 	}, function(){ $(this).removeAttr("style")} )
-// })
+app.page = 1;
+app.bookArray = [];
 
 app.getBookList = function () {
 	$.ajax({
@@ -107,14 +102,39 @@ app.getBookList = function () {
 		data: {
 			reqUrl: app.authorBooksUrl + app.authorID,
 			params: {
-				key: app.apiKey
+				key: app.apiKey,
+				page: app.page
 			},
 			xmlToJSON: true
 		}
 	}).then(function (data) {
 		console.log(data);
+		// app.bookArray.push(data.GoodreadsResponse.author.books.book);
+		var thing = data.GoodreadsResponse.author.books.book;
+
+		thing.forEach(function (val, i) {
+			app.bookArray.push(val);
+		});
+
+		if (data.GoodreadsResponse.author.books.end === data.GoodreadsResponse.author.books.total) {
+			console.log(data.GoodreadsResponse.author.books);
+		} else {
+			app.page++;
+			app.getBookList();
+			console.log(data.GoodreadsResponse.author.books.end);
+		};
+		console.log(app.bookArray);
 	});
 };
+//Close function
+
+//code for reset author search link
+// $("a").on("click",function(e){
+// 	e.preventDefault();
+// 	$(".box").show();
+// 	$(".box").animate({
+// 	}, function(){ $(this).removeAttr("style")} )
+// })
 
 app.init = function () {
 	// app.getAuthorID();
