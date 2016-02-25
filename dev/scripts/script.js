@@ -57,6 +57,15 @@ app.getBookInfo = function(authorData){
 	console.log(authorProfile);
 }
 
+app.displayBooks = function(){
+	$("#books").empty();
+	var bookHtml = $("#authorTemplate")
+	var template = Handlebars.compile(bookHtml)
+	//data.forEach(function(val, i){
+	//	$("#books").append(template(val));
+	//})
+}
+
 app.starHover = function(){
 	$(".oneStar, .twoStar, .threeStar, .fourStar, .fiveStar ")
 	.on("mouseenter", function(){
@@ -65,15 +74,27 @@ app.starHover = function(){
 	.on("mouseleave", function(){
 		$(this).removeClass("hover").prevAll().removeClass("hover");
 	})
-	.on("click", function(){
+	.on("click", function(e){
+		e.preventDefault();
 		app.rating = $(this).data("rating")
 		console.log(app.rating);
+		//app.filteredBooks();
 		if ($(this).hasClass("selected") && ($(this).hasClass("hover")) ) {
 			$(".star").not(".hover").removeClass("selected");
 		}
 		$(this).addClass("selected").prevAll().addClass("selected");
 	});
 };
+
+app.filterBooks = function(){
+	filteredBooksArray = [];
+	data.forEach(function(val, i){
+		if ((val.average_rating >= app.rating) && (val.average_rating <= app.rating+1)) {
+			filteredBooksArray.push(val);
+		}
+	})
+	//app.displayBooks()
+}
 
 app.selectAuthor = function(){
 	$("label").on("click", function(e){
@@ -97,13 +118,23 @@ app.selectAuthor = function(){
 	});
 }
 
-	//code for reset author search link
-		// $("a").on("click",function(e){
-		// 	e.preventDefault();
-		// 	$(".box").show();
-		// 	$(".box").animate({
-		// 	}, function(){ $(this).removeAttr("style")} )
-		// })
+app.resetSearch = function() {
+	$(".reset").on("click",function(e) {
+		var $label = $("label");
+		e.preventDefault();
+		$label.show();
+		$label.animate ({
+		}, function(){ $(this).removeAttr("style")} )
+		$label.find("p").show();
+		$label.find("img").animate({
+			width: 150,
+			height: 150
+		}, "slow");
+		$(".authorHeading").hide();
+	});
+	
+}
+
 
 app.getBookList = function(){
 	$.ajax({
@@ -126,6 +157,7 @@ app.init = function(){
 	// app.getAuthorID();
 	app.selectAuthor();
 	app.starHover();
+	app.resetSearch();
 
 };
 
