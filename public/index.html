@@ -5,13 +5,29 @@
 	<title>Canadian Women Authors</title>
 	<link rel="stylesheet" href="styles/style.css">
 	<link href='https://fonts.googleapis.com/css?family=Quicksand:400,300,700|Dosis:400,300' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.js"></script>
+	<script id="authorTemplate" type="x-handlebars-template">
+		<div class="author">
+			<h2>{{title}}</h2>
+			<img src="{{image_url}}" alt="">
+			
+			<p>Average rating: {{average_rating}}</p>
+			<p>Publication year: {{publication_year}}</p>
+			<p>{{Description}}</p>
+		</div>
+	</script>
 </head>
 <body>
 	<header>
 		<div class="wrapper">
+<<<<<<< HEAD
 			<h1>Discover Canadian Women Authors</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, id aspernatur impedit nemo itaque inventore est deserunt quod, cumque ea aliquid obcaecati, alias eaque beatae distinctio temporibus fugit nobis aperiam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus cupiditate sequi, odit excepturi reiciendis tempora nobis vel incidunt ipsa harum, libero, quisquam impedit, obcaecati suscipit eius minima quia. Laboriosam, consectetur!</p>
 
+=======
+			<h1>Canadian Women Authors-test</h1>
+>>>>>>> 0a35bdb44b58e19d3e62b1445ee27796f6f0ca97
 		</div>
 	</header>
 	<section class="main">
@@ -52,7 +68,11 @@
 				<input type="radio" name="author" id="zoeWhittall" value="Zoe Whittall">
 				<label for="zoeWhittall">
 					<div class="authorLabel">
+<<<<<<< HEAD
 						<img src="ImagesAuthors/Zoe-Whittall.jpg" alt="">
+=======
+						<img src="http://unsplash.it/202/200" alt="">
+>>>>>>> 0a35bdb44b58e19d3e62b1445ee27796f6f0ca97
 						<p>Zoe Whittall</p>
 					</div>
 				</label>
@@ -64,6 +84,26 @@
 		<div class="wrapper">
 			<h2></h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima harum tempora quam voluptate sequi maiores rerum adipisci, voluptates tempore quas ad, recusandae a commodi voluptatem consequatur quod, dicta omnis veniam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis, nemo, voluptatibus culpa consequuntur rerum accusantium reiciendis id neque aut odio blanditiis quis quam natus iure, delectus nulla. Unde, molestias, nam.</p>
+			<a href="#" class="reset">Select Another Author</a>
+		</div>
+	</section>
+	<section class="filters">
+		<div class="wrapper">
+			<div class="rating">
+				<i class="fa fa-star-o fa-2x star oneStar" data-rating="1.00"></i>
+				<i class="fa fa-star-o fa-2x star twoStar" data-rating="2.00"></i>
+				<i class="fa fa-star-o fa-2x star threeStar" data-rating="3.00"></i>
+				<i class="fa fa-star-o fa-2x star fourStar" data-rating="4.00"></i>
+				<i class="fa fa-star-o fa-2x star fiveStar" data-rating="5.00"></i>
+				<a href="showAll" id="showAll">Show All</a>
+			</div>
+		</div>
+	</section>
+	<section class="books">
+		<div class="wrapper">
+			<h3></h3>
+			<div class="books" id="books">
+			</div>
 		</div>
 	</section>
 
