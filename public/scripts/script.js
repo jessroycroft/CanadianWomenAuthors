@@ -57,42 +57,6 @@ app.getBookInfo = function (authorData) {
 	console.log(authorProfile);
 };
 
-app.displayBooks = function () {
-	$("#books").empty();
-	var bookHtml = $("#authorTemplate");
-	var template = Handlebars.compile(bookHtml);
-	//data.forEach(function(val, i){
-	//	$("#books").append(template(val));
-	//})
-};
-
-app.starHover = function () {
-	$(".oneStar, .twoStar, .threeStar, .fourStar, .fiveStar ").on("mouseenter", function () {
-		$(this).addClass("hover").prevAll().addClass("hover");
-	}).on("mouseleave", function () {
-		$(this).removeClass("hover").prevAll().removeClass("hover");
-	}).on("click", function (e) {
-		e.preventDefault();
-		app.rating = $(this).data("rating");
-		console.log(app.rating);
-		//app.filteredBooks();
-		if ($(this).hasClass("selected") && $(this).hasClass("hover")) {
-			$(".star").not(".hover").removeClass("selected");
-		}
-		$(this).addClass("selected").prevAll().addClass("selected");
-	});
-};
-
-app.filterBooks = function () {
-	filteredBooksArray = [];
-	data.forEach(function (val, i) {
-		if (val.average_rating >= app.rating && val.average_rating <= app.rating + 1) {
-			filteredBooksArray.push(val);
-		}
-	});
-	//app.displayBooks()
-};
-
 app.selectAuthor = function () {
 	$("label").on("click", function (e) {
 		e.preventDefault();
@@ -111,28 +75,11 @@ app.selectAuthor = function () {
 		$(".authorHeading h2").text(app.author);
 	});
 };
-
-<<<<<<< HEAD
+//this will be the array we will store all the authors books
+app.allBookArray = [];
 app.page = 1;
+//app.bookArray is the general array that will store the array of books passed on to display from the filter function to display and from initial ajax call to display -
 app.bookArray = [];
-=======
-app.resetSearch = function () {
-	$(".reset").on("click", function (e) {
-		var $label = $("label");
-		e.preventDefault();
-		$label.show();
-		$label.animate({}, function () {
-			$(this).removeAttr("style");
-		});
-		$label.find("p").show();
-		$label.find("img").animate({
-			width: 150,
-			height: 150
-		}, "slow");
-		$(".authorHeading").hide();
-	});
-};
->>>>>>> 3a3bc19812a002cb24fdac9347304b8c95313055
 
 app.getBookList = function () {
 	$.ajax({
@@ -149,32 +96,104 @@ app.getBookList = function () {
 		}
 	}).then(function (data) {
 		console.log(data);
-		// app.bookArray.push(data.GoodreadsResponse.author.books.book);
-		var thing = data.GoodreadsResponse.author.books.book;
-
-		thing.forEach(function (val, i) {
-			app.bookArray.push(val);
-		});
+		var books = data.GoodreadsResponse.author.books.book;
 
 		if (data.GoodreadsResponse.author.books.end === data.GoodreadsResponse.author.books.total) {
-			console.log(data.GoodreadsResponse.author.books);
+			books.forEach(function (val, i) {
+				app.allBookArray.push(val);
+			});
+
+			app.bookArray = app.allBookArray;
+
+			console.log(app.bookArray);
+			app.displayBooks();
 		} else {
 			app.page++;
 			app.getBookList();
 			console.log(data.GoodreadsResponse.author.books.end);
 		};
-		console.log(app.bookArray);
 	});
 };
-//Close function
 
-//code for reset author search link
-// $("a").on("click",function(e){
-// 	e.preventDefault();
-// 	$(".box").show();
-// 	$(".box").animate({
-// 	}, function(){ $(this).removeAttr("style")} )
-// })
+// Filter books by rating
+app.filterBooks = function () {
+	app.filteredBooksByRating = [];
+	console.log("entered filterBooks");
+	// console.log(app.rating);
+	app.bookArray.forEach(function (val, i) {
+		console.log(val);
+		if (val.average_rating >= app.rating && val.average_rating <= app.rating + 0.99) {
+			console.log("enter if");
+			console.log(val.average_rating);
+			app.filteredBooksByRating.push(val);
+		}
+	});
+	console.log(app.filteredBooksByRating);
+	if (app.filteredBooksByRating.length === 0) {
+		$("#books").empty();
+		$(".books h3").show().text("No books found with this rating");
+	} else {
+		$(".books h3").hide();
+		app.bookArray = app.filteredBooksByRating;
+		app.displayBooks();
+	}
+
+	$("#showAll").on("click", function (e) {
+		console.log("showall");
+		e.preventDefault();
+		$(".books h3").hide();
+		app.bookArray = app.allBookArray;
+		app.displayBooks();
+	});
+};
+
+app.displayBooks = function () {
+	console.log("entered displayBooks");
+	$("#books").empty();
+	var bookHtml = $("#authorTemplate").html();
+	var bookTemplate = Handlebars.compile(bookHtml);
+	app.bookArray.forEach(function (data, i) {
+		$("#books").append(bookTemplate(data));
+	});
+};
+
+// Reset button for authors
+app.resetSearch = function () {
+	$(".reset").on("click", function (e) {
+		var $label = $("label");
+		e.preventDefault();
+		$label.show();
+		$label.animate({}, function () {
+			$(this).removeAttr("style");
+		});
+		$label.find("p").show();
+		$label.find("img").animate({
+			width: 150,
+			height: 150
+		}, "slow");
+		$(".authorHeading").hide();
+	});
+};
+
+// Hover effects for stars
+app.starHover = function () {
+	$(".oneStar, .twoStar, .threeStar, .fourStar, .fiveStar ").on("mouseenter", function () {
+		$(this).addClass("hover").prevAll().addClass("hover");
+	}).on("mouseleave", function () {
+		$(this).removeClass("hover").prevAll().removeClass("hover");
+	}).on("click", function (e) {
+		e.preventDefault();
+		app.rating = $(this).data("rating");
+		app.rating = parseInt(app.rating);
+		console.log(app.rating);
+		app.bookArray = app.allBookArray;
+		app.filterBooks();
+		if ($(this).hasClass("selected") && $(this).hasClass("hover")) {
+			$(".star").not(".hover").removeClass("selected");
+		}
+		$(this).addClass("selected").prevAll().addClass("selected");
+	});
+};
 
 app.init = function () {
 	// app.getAuthorID();

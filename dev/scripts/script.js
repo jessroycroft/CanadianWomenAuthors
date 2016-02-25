@@ -58,17 +58,6 @@ app.getBookInfo = function(authorData){
 	console.log(authorProfile);
 }
 
-app.displayBooks = function(){
-	$("#books").empty();
-	var bookHtml = $("#authorTemplate")
-	var template = Handlebars.compile(bookHtml)
-	//data.forEach(function(val, i){
-	//	$("#books").append(template(val));
-	//})
-}
-
-
-
 app.selectAuthor = function(){
 	$("label").on("click", function(e){
 		e.preventDefault();
@@ -90,10 +79,10 @@ app.selectAuthor = function(){
 		$(".authorHeading h2").text(app.author);
 	});
 }
-
-
-
+//this will be the array we will store all the authors books
+app.allBookArray = [];
 app.page = 1;
+//app.bookArray is the general array that will store the array of books passed on to display from the filter function to display and from initial ajax call to display - 
 app.bookArray = [];
 
 app.getBookList = function(){
@@ -113,30 +102,65 @@ app.getBookList = function(){
 		console.log(data);
 		var books = data.GoodreadsResponse.author.books.book;
 
-		books.forEach(function(val, i){
-			app.bookArray.push(val);
-		})
+		
 
 		if (data.GoodreadsResponse.author.books.end === data.GoodreadsResponse.author.books.total) {
-			console.log(data.GoodreadsResponse.author.books);
+			books.forEach(function(val, i) {
+				app.allBookArray.push(val);
+			})
+			
+			app.bookArray = app.allBookArray;
+
+			console.log(app.bookArray);
+			app.displayBooks();
 		} else { 
 		app.page++;
 		app.getBookList();
 	    console.log(data.GoodreadsResponse.author.books.end);
 		};
-		console.log(app.bookArray);
 	});
 };
 
 // Filter books by rating
 app.filterBooks = function(){
-	filteredBooksArray = [];
-	data.forEach(function(val, i){
-		if ((val.average_rating >= app.rating) && (val.average_rating <= app.rating+1)) {
-			filteredBooksArray.push(val);
+	app.filteredBooksByRating = [];
+	console.log("entered filterBooks")
+	// console.log(app.rating);
+	app.bookArray.forEach(function(val, i){
+		console.log(val);
+		if ((val.average_rating >= app.rating) && (val.average_rating <= app.rating+(0.99))) {
+			console.log("enter if")
+			console.log(val.average_rating);
+			app.filteredBooksByRating.push(val);
 		}
 	})
-	//app.displayBooks()
+	console.log(app.filteredBooksByRating);
+	if (app.filteredBooksByRating.length === 0 ){
+		$("#books").empty();
+		$(".books h3").show().text("No books found with this rating")
+	} else {
+		$(".books h3").hide();
+		app.bookArray = app.filteredBooksByRating;
+		app.displayBooks()
+	}
+
+	$("#showAll").on("click", function(e){
+		console.log("showall")
+		e.preventDefault();
+		$(".books h3").hide();
+		app.bookArray = app.allBookArray;
+		app.displayBooks();
+	})
+}
+
+app.displayBooks = function(){
+	console.log("entered displayBooks")
+	$("#books").empty();
+	var bookHtml = $("#authorTemplate").html();
+	var bookTemplate = Handlebars.compile(bookHtml);
+	app.bookArray.forEach(function(data, i){
+		$("#books").append(bookTemplate(data));
+	})
 }
 
 // Reset button for authors
@@ -168,9 +192,11 @@ app.starHover = function(){
 	})
 	.on("click", function(e){
 		e.preventDefault();
-		app.rating = $(this).data("rating")
+		app.rating = $(this).data("rating");
+		app.rating = parseInt(app.rating);
 		console.log(app.rating);
-		//app.filteredBooks();
+		app.bookArray = app.allBookArray;
+		app.filterBooks();
 		if ($(this).hasClass("selected") && ($(this).hasClass("hover")) ) {
 			$(".star").not(".hover").removeClass("selected");
 		}
