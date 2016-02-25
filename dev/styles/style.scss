@@ -1,12 +1,19 @@
 @import 'normalize.scss';
 @import 'placeholders-mixins.scss';
 
+$pinkish: #F21E36;
+$offwhite: #EDF2F4;
+$grey: #8D99AF;
+$blueish: #2B2C43;
+
+
 html {
 	font-size: 62.5%;
 }
 
 body {
 	@include fontSizer(16);
+	font-family: 'Dosis', sans-serif;
 }
 
 .wrapper {
@@ -57,5 +64,9 @@ input[type=radio] {
 	width: 100%;
 	padding-left: 250px;
 	display: none;
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: 'quicksand', serif;
 }
 
