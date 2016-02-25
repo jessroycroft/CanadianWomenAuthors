@@ -1,12 +1,20 @@
 @import 'normalize.scss';
 @import 'placeholders-mixins.scss';
 
+$pinkish: #F21E36;
+$offwhite: #EDF2F4;
+$grey: #8D99AF;
+$blueish: #2B2C43;
+
+
 html {
 	font-size: 62.5%;
 }
 
 body {
 	@include fontSizer(16);
+	font-family: 'Dosis', sans-serif;
+	background: $offwhite;
 }
 
 .wrapper {
@@ -26,9 +34,13 @@ input[type=radio] {
 		position: relative;
 		label {
 			display: inline-block;
-			img {
-			width:150px;
-			}
+			.authorLabel {
+			width: 200px;
+			height: 200px;
+				}
+				img {
+				width:100%;
+				}
 		}
 		label[for=lisaMoore] {
 			left: 9%;
@@ -56,6 +68,18 @@ input[type=radio] {
 	display: none;
 }
 
+<<<<<<< HEAD
+h1, h2, h3, h4, h5 {
+	font-family: 'quicksand', serif;
+}
+
+h1 {
+	font-size: 5rem;
+	text-align: center;
+	color: $blueish;
+}
+
+=======
 .filters .wrapper {
 	padding: 3%;
 }
@@ -67,3 +91,4 @@ input[type=radio] {
 .selected {
 	background: yellow;
 }
+>>>>>>> 0a35bdb44b58e19d3e62b1445ee27796f6f0ca97
