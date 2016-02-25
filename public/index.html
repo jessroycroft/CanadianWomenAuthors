@@ -8,14 +8,14 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.js"></script>
 	<script id="authorTemplate" type="x-handlebars-template">
-	// 	<div class="author">
-	// 		<h2>{{title}}</h2>
-	// 		<img src="{{image_url}}" alt="">
+		<div class="author">
+			<h2>{{title}}</h2>
+			<img src="{{image_url}}" alt="">
 			
-	// 		<p>Average rating: {{average_rating}}</p>
-	// 		<p>Publication year: {{publication_year}}</p>
-	// 		<p>{{Description}}</p>
-	// 	</div>
+			<p>Average rating: {{average_rating}}</p>
+			<p>Publication year: {{publication_year}}</p>
+			<p>{{Description}}</p>
+		</div>
 	</script>
 </head>
 <body>
@@ -80,18 +80,19 @@
 	<section class="filters">
 		<div class="wrapper">
 			<div class="rating">
-				<i class="fa fa-star-o fa-2x star oneStar" data-rating="1"></i>
-				<i class="fa fa-star-o fa-2x star twoStar" data-rating="2"></i>
-				<i class="fa fa-star-o fa-2x star threeStar" data-rating="3"></i>
-				<i class="fa fa-star-o fa-2x star fourStar" data-rating="4"></i>
-				<i class="fa fa-star-o fa-2x star fiveStar" data-rating="5"></i>
+				<i class="fa fa-star-o fa-2x star oneStar" data-rating="1.00"></i>
+				<i class="fa fa-star-o fa-2x star twoStar" data-rating="2.00"></i>
+				<i class="fa fa-star-o fa-2x star threeStar" data-rating="3.00"></i>
+				<i class="fa fa-star-o fa-2x star fourStar" data-rating="4.00"></i>
+				<i class="fa fa-star-o fa-2x star fiveStar" data-rating="5.00"></i>
+				<a href="showAll" id="showAll">Show All</a>
 			</div>
 		</div>
 	</section>
-	<section>
+	<section class="books">
 		<div class="wrapper">
+			<h3></h3>
 			<div class="books" id="books">
-				
 			</div>
 		</div>
 	</section>
