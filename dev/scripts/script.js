@@ -65,21 +65,7 @@ app.getBookInfo = function(authorData){
 	console.log(about);
 }
 
-<<<<<<< HEAD
-=======
-// Handlebars template to display books
-app.displayBooks = function(){
-	$("#books").empty();
-	var bookHtml = $("#authorTemplate")
-	var template = Handlebars.compile(bookHtml)
-	//data.forEach(function(val, i){
-	//	$("#books").append(template(val));
-	//})
-}
 
-
-// Function to choose author/get name by clicking pictures
->>>>>>> 949e2df92c738c914b41a86453ba223212b693fe
 app.selectAuthor = function(){
 	$("label").on("click", function(e){
 		e.preventDefault();
@@ -101,14 +87,14 @@ app.selectAuthor = function(){
 		$(".authorHeading h2").text(app.author);
 	});
 }
-<<<<<<< HEAD
+
 //this will be the array we will store all the authors books
 app.allBookArray = [];
-=======
+
 
 
 // Function to access list of author's books
->>>>>>> 949e2df92c738c914b41a86453ba223212b693fe
+
 app.page = 1;
 //app.bookArray is the general array that will store the array of books passed on to display from the filter function to display and from initial ajax call to display - 
 app.bookArray = [];
@@ -129,9 +115,9 @@ app.getBookList = function(){
 	}).then(function(data) {
 		console.log(data);
 		var books = data.GoodreadsResponse.author.books.book;
-
-<<<<<<< HEAD
-		
+		books.forEach(function(val, i){
+			app.bookArray.push(val);
+		})
 
 		if (data.GoodreadsResponse.author.books.end === data.GoodreadsResponse.author.books.total) {
 			books.forEach(function(val, i) {
@@ -142,15 +128,10 @@ app.getBookList = function(){
 
 			console.log(app.bookArray);
 			app.displayBooks();
-=======
-		books.forEach(function(val, i){
-			app.bookArray.push(val);
-		})
+
 		// If the number at the end of the page is equal to the total number of books, then console.log the list of books
-		if (data.GoodreadsResponse.author.books.end === data.GoodreadsResponse.author.books.total) {
-			console.log(data.GoodreadsResponse.author.books);
 		// Otherwise, add one to app.page and run the function again.
->>>>>>> 949e2df92c738c914b41a86453ba223212b693fe
+
 		} else { 
 		app.page++;
 		app.getBookList();
