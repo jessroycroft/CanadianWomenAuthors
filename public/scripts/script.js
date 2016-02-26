@@ -33,6 +33,63 @@ app.getAuthorID = function () {
 	});
 };
 
+/////////////////// this section is brand new
+// app.getAuthorInfo = $.ajax({
+//     url: 'http://proxy.hackeryou.com',
+//     dataType: 'json',
+//     method:'GET',
+//     data: {
+//         reqUrl: app.authorInfoUrl + app.authorID,
+// 		params: {
+// 			key: app.apiKey
+// 		},
+//         xmlToJSON: true
+//     };
+// });
+
+// app.getBookList = $.ajax({
+//     url: 'http://proxy.hackeryou.com',
+//     dataType: 'json',
+//     method: 'GET',
+//     data: {
+//         reqUrl: app.authorBooksUrl + app.authorID,
+// 		params: {
+// 			key: app.apiKey,
+// 			page: app.page
+// 		},
+//         xmlToJSON: true
+//     };
+// });
+
+app.promise = function () {
+	$.when(app.authorInfo, app.getBookList).done(function (authorData, bookData) {
+		app.getBookInfo(authorData);
+
+		var books = bookData.GoodreadsResponse.author.books.book;
+		books.forEach(function (val, i) {
+			app.allBookArray.push(val);
+		});
+
+		// If the number at the end of the page is equal to the total number of books, then console.log the list of books
+
+		if (data.GoodreadsResponse.author.books.end === data.GoodreadsResponse.author.books.total) {
+
+			app.bookArray = app.allBookArray;
+			console.log(app.bookArray);
+			app.displayBooks();
+
+			// If the number at the end of the page is equal to the total number of books, then console.log the list of books
+			// Otherwise, add one to app.page and run the function again.
+		} else {
+				app.page++;
+				app.getBookList();
+				console.log(data.GoodreadsResponse.author.books.end);
+			};
+	});
+};
+
+///////////////// end new section
+
 // Access author's Goodreads page via their author ID
 app.getAuthorInfo = function () {
 	$.ajax({
@@ -52,9 +109,13 @@ app.getAuthorInfo = function () {
 	});
 };
 
+//app.bookArray will be the array we will store all the authors books
+//app.allBookArray is the general array that will store the array of books passed on to display from the filter function to display and from initial ajax call to display
 // Function to choose author/get name by clicking pictures
 app.selectAuthor = function () {
 	$("label").on("click", function (e) {
+		app.bookArray = [];
+		app.allBookArray = [];
 		e.preventDefault();
 		app.author = $(this).prev().val();
 		app.getAuthorID();
@@ -74,13 +135,8 @@ app.selectAuthor = function () {
 	});
 };
 
-//this will be the array we will store all the authors books
-app.allBookArray = [];
-
 // Function to access list of author's books
 app.page = 1;
-//app.bookArray is the general array that will store the array of books passed on to display from the filter function to display and from initial ajax call to display -
-app.bookArray = [];
 
 app.getBookList = function () {
 	$.ajax({
@@ -125,14 +181,14 @@ app.filterBooks = function () {
 	app.filteredBooksByRating = [];
 	console.log("entered filterBooks");
 	// console.log(app.rating);
-	app.bookArray.forEach(function (val, i) {
-		console.log(val);
-		if (val.average_rating >= app.rating && val.average_rating <= app.rating + 0.99) {
-			console.log("enter if");
-			console.log(val.average_rating);
-			app.filteredBooksByRating.push(val);
-		}
-	});
+	// app.bookArray.forEach(function(val, i){
+	// 	console.log(val);
+	// 	if ((val.average_rating >= app.rating) && (val.average_rating <= app.rating+(0.99))) {
+	// 		console.log("enter if")
+	// 		console.log(val.average_rating);
+	// 		app.filteredBooksByRating.push(val);
+	// 	}
+	// })
 	console.log(app.filteredBooksByRating);
 	if (app.filteredBooksByRating.length === 0) {
 		$("#books").empty();
@@ -141,15 +197,8 @@ app.filterBooks = function () {
 		$(".books h3").hide();
 		app.bookArray = app.filteredBooksByRating;
 		app.displayBooks();
+		app.sortBooks();
 	}
-
-	$("#showAll").on("click", function (e) {
-		console.log("showall");
-		e.preventDefault();
-		$(".books h3").hide();
-		app.bookArray = app.allBookArray;
-		app.displayBooks();
-	});
 };
 
 // Get author's bio information from their Goodreads profile
@@ -180,15 +229,98 @@ app.displayBio = function () {
 	var bioTemplate = Handlebars.compile(bioHtml);
 	$("#authorBio").append(bioTemplate(app.bioInformation));
 };
-
+var $container;
 // Display list of author's books
 app.displayBooks = function () {
 	console.log("entered displayBooks");
-	$("#books").empty();
+	// $("#books").empty();
+
 	var bookHtml = $("#authorTemplate").html();
 	var bookTemplate = Handlebars.compile(bookHtml);
 	app.bookArray.forEach(function (data, i) {
 		$("#books").append(bookTemplate(data));
+	});
+
+	$container = $('#books').isotope({
+		itemSelector: '.book-gallery',
+		percentPosition: true,
+		// layoutMode: 'vertical',
+		masonry: {
+			columnWidth: '.book-gallery'
+		},
+		getSortData: {
+			name: '.name',
+			year: '.publicationYear span',
+			number: function number(bookRating) {
+				var rating = $(bookRating).find('.rating span').text();
+				console.log(rating);
+				return parseFloat(rating.replace(/[\(\)]/g, ''));
+			} //closes number
+		} //closes getSortData
+	}); // closes $container
+
+	$container.imagesLoaded().progress(function () {
+		$container.isotope('layout');
+	});
+};
+
+app.sortBooks = function () {
+
+	$("#sortByTitle").on("click", function (e) {
+		e.preventDefault();
+		$container.isotope({ sortBy: 'name' });
+	});
+
+	$("#sortByRating").on("click", function (e) {
+		e.preventDefault();
+		console.log("sort by rating click");
+		$container.isotope({
+			sortBy: 'number',
+			sortAscending: {
+				number: false
+			}
+		});
+	});
+
+	$("#sortByPubYear").on("click", function (e) {
+		e.preventDefault();
+		$container.isotope({
+			sortBy: 'year',
+			sortAscending: {
+				year: false
+			}
+		});
+	});
+
+	$('.star').on('click', function () {
+		if ($(this).hasClass("selected") && $(this).hasClass("hover")) {
+			$(".star").not(".hover").removeClass("selected");
+		}
+		$(this).addClass("selected").prevAll().addClass("selected");
+		var filterValue = $(this).data('rating');
+		console.log(filterValue);
+
+		$container.isotope({
+			// filter element with numbers greater than filterValue
+			filter: function filter() {
+				// _this_ is the item element. Get text of element's .number
+				var number = $(this).find('.rating span').text();
+				return parseFloat(number) >= filterValue;
+			} //close filter fn
+		}); //close $container
+	});
+
+	$("#showAll").on("click", function (e) {
+		e.preventDefault();
+		console.log("showall");
+		$(".books h3").hide();
+		$(".star").removeClass("selected");
+		//app.bookArray = app.allBookArray;
+		//app.displayBooks();
+		// app.sortBooks();
+		$container.isotope({
+			filter: '*'
+		});
 	});
 };
 
@@ -197,6 +329,8 @@ app.resetSearch = function () {
 	$(".reset").on("click", function (e) {
 		var $label = $("label");
 		e.preventDefault();
+		$container.isotope('destroy');
+		$('#books').empty();
 		$label.show();
 		$label.animate({}, function () {
 			$(this).removeAttr("style");
@@ -216,18 +350,19 @@ app.starHover = function () {
 		$(this).addClass("hover").prevAll().addClass("hover");
 	}).on("mouseleave", function () {
 		$(this).removeClass("hover").prevAll().removeClass("hover");
-	}).on("click", function (e) {
-		e.preventDefault();
-		app.rating = $(this).data("rating");
-		app.rating = parseInt(app.rating);
-		console.log(app.rating);
-		app.bookArray = app.allBookArray;
-		app.filterBooks();
-		if ($(this).hasClass("selected") && $(this).hasClass("hover")) {
-			$(".star").not(".hover").removeClass("selected");
-		}
-		$(this).addClass("selected").prevAll().addClass("selected");
 	});
+	//.on("click", function(e){
+	//	e.preventDefault();
+	//	app.rating = $(this).data("rating");
+	//	app.rating = parseInt(app.rating);
+	//	console.log(app.rating);
+	//	app.bookArray = app.allBookArray;
+	//	app.filterBooks();
+	//	if ($(this).hasClass("selected") && ($(this).hasClass("hover")) ) {
+	//		$(".star").not(".hover").removeClass("selected");
+	//	}
+	//	$(this).addClass("selected").prevAll().addClass("selected");
+	//});
 };
 
 app.init = function () {
@@ -235,6 +370,7 @@ app.init = function () {
 	app.selectAuthor();
 	app.starHover();
 	app.resetSearch();
+	app.sortBooks();
 };
 
 $(function () {
