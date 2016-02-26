@@ -14,12 +14,13 @@ html {
 body {
 	@include fontSizer(16);
 	font-family: 'Dosis', sans-serif;
-	background: $offwhite;
+	background: $grey;
+	color: $blueish;
 }
 
 .wrapper {
-	max-width: 1080px;
-	width: 100%;
+	max-width: 90%;
+	width: 1080;
 	margin: 0 auto;
 
 }
@@ -29,7 +30,7 @@ input[type=radio] {
 }
  
 .main {
-	text-align:center;
+	text-align: center;
 	.wrapper {
 		position: relative;
 		label {
@@ -66,16 +67,25 @@ input[type=radio] {
 	width: 100%;
 	padding-left: 25%;
 	display: none;
+	background: $offwhite;
 }
 
 h1, h2, h3, h4, h5 {
 	font-family: 'quicksand', serif;
 }
 
+a {
+	text-decoration: none;
+	color: $pinkish;
+}
+
 h1 {
-	font-size: 5rem;
-	text-align: center;
+	font-size: 7rem;
+	text-align: left;
+	text-shadow: 0.2px 0.3px $offwhite;
 	color: $blueish;
+	font-weight: 300;
+	letter-spacing: 0.1px;
 }
 
 .filters .wrapper {
@@ -89,3 +99,40 @@ h1 {
 .selected {
 	background: yellow;
 }
+// ---------BOOK GALLERY/LIST SECTION-----
+// generated from scripts.js. to do: re-name classes in this section.
+#books {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.book-gallery {
+	width: calc(50% - 4rem);
+	background: $pinkish;
+	margin: 2rem;
+	-webkit-box-shadow: 7px 7px 23px -8px rgba(43,44,67,1);
+	-moz-box-shadow: 7px 7px 23px -8px rgba(43,44,67,1);
+	box-shadow: 7px 7px 23px -8px rgba(43,44,67,1);
+}
+
+.author-flex-container {
+	display: flex;
+	margin: 2rem;
+}
+
+.book-specs-flex {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	padding-left: 1rem;
+	h2 {
+		font-size: 2rem;
+	}
+	p {
+		margin-top: 0.3rem;
+		margin-bottom: 0.3rem;
+	}	
+	
+}
+
+
