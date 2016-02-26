@@ -8,13 +8,14 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.js"></script>
 	<script id="authorTemplate" type="x-handlebars-template">
-		<div class="book-image-specs-container clearfix">
+
+		<div class="book-gallery">
 			<div class="book-image">
 				<img src="{{image_url}}" alt="">
 			</div>		
 			<div class="book-specs">	
-				<h2>{{title}}</h2>
-				<p>Average rating: {{average_rating}}</p>
+				<h2 class="name">{{title}}</h2>
+				<p class="rating">Average rating: <span>{{average_rating}}</span></p>
 				<p>Publication year: {{publication_year}}</p>
 				<p>{{Description}}</p>
 			</div>	
@@ -118,6 +119,10 @@
 	</section>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+	<script src="scripts/isotope.pkgd.min.js"></script>
 	<script src="scripts/script.js"></script>
+
 </body>
+	
 </html>
