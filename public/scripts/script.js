@@ -374,5 +374,6 @@ app.init = function () {
 };
 
 $(function () {
+	console.log("running");
 	app.init();
 });

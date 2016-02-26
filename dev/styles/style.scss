@@ -1,10 +1,10 @@
 @import 'normalize.scss';
 @import 'placeholders-mixins.scss';
 
-$pinkish: #F21E36;
+$red: #F21E36;
 $offwhite: #EDF2F4;
 $grey: #8D99AF;
-$blueish: #2B2C43;
+$blue: #2B2C43;
 
 
 html {
@@ -15,13 +15,26 @@ body {
 	@include fontSizer(16);
 	font-family: 'Dosis', sans-serif;
 	background: $grey;
-	color: $blueish;
+	color: $blue;
+}
+
+header {
+	padding: 5%;
+	.wrapper {
+		padding: 10%;
+	}
+}
+
+.main .wrapper {
+	padding: 5% 8%;
 }
 
 .wrapper {
-	max-width: 90%;
-	width: 1080;
+	// padding: 2%;
+	width: 90%;
+	max-width: 1080px;
 	margin: 0 auto;
+	background-color: $offwhite;
 
 }
 
@@ -63,10 +76,13 @@ input[type=radio] {
 }
 
 .authorHeading {
+	// border: 1px solid black;
+	// height: 200px;
+	width: 100%;
+	padding-left: 25%;
 	border: 1px solid black;
 	height: auto;
 	width: 90%;
-	padding-left: 22%;
 	display: none;
 	background: $offwhite;
 	margin: 0 auto;
@@ -78,16 +94,31 @@ h1, h2, h3, h4, h5 {
 
 a {
 	text-decoration: none;
-	color: $pinkish;
+	color: $red;
 }
+
+// h1 {
+// 	font-size: 7rem;
+// 	text-align: left;
+// 	text-shadow: 0.2px 0.3px $offwhite;
+// 	color: $blueish;
+// 	font-weight: 300;
+// 	letter-spacing: 0.1px;
+// 	text-transform: uppercase;
+// }
 
 h1 {
 	font-size: 7rem;
 	text-align: left;
-	text-shadow: 0.2px 0.3px $offwhite;
-	color: $blueish;
-	font-weight: 300;
-	letter-spacing: 0.1px;
+	color: $blue;
+	font-weight: 700;
+	letter-spacing: -0.5rem;
+	line-height: 8rem;
+	text-transform: uppercase;
+}
+
+p {
+	font-size: 1.6rem;
 }
 
 .filters .wrapper {
@@ -110,7 +141,7 @@ h1 {
 
 .book-gallery {
 	width: calc(50% - 4rem);
-	background: $pinkish;
+	background: $red;
 	margin: 2rem;
 	float: left;
 	-webkit-box-shadow: 7px 7px 23px -8px rgba(43,44,67,1);
