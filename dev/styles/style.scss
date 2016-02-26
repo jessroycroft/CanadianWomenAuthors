@@ -121,17 +121,27 @@ p {
 	font-size: 1.6rem;
 }
 
+.filters {
+	display: none;
+}
+
 .filters .wrapper {
 	padding: 3%;
 }
 
+.star {
+	color: gray;
+}
+
 .hover {
-	background: yellow;
+	color: #E4CA71;
 }
 
 .selected {
-	background: yellow;
+	color: #E4CA71;
 }
+
+
 // ---------BOOK GALLERY/LIST SECTION-----
 // generated from scripts.js. to do: re-name classes in this section.
 
