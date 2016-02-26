@@ -33,34 +33,6 @@ app.getAuthorID = function () {
 	});
 };
 
-/////////////////// this section is brand new
-// app.getAuthorInfo = $.ajax({
-//     url: 'http://proxy.hackeryou.com',
-//     dataType: 'json',
-//     method:'GET',
-//     data: {
-//         reqUrl: app.authorInfoUrl + app.authorID,
-// 		params: {
-// 			key: app.apiKey
-// 		},
-//         xmlToJSON: true
-//     };
-// });
-
-// app.getBookList = $.ajax({
-//     url: 'http://proxy.hackeryou.com',
-//     dataType: 'json',
-//     method: 'GET',
-//     data: {
-//         reqUrl: app.authorBooksUrl + app.authorID,
-// 		params: {
-// 			key: app.apiKey,
-// 			page: app.page
-// 		},
-//         xmlToJSON: true
-//     };
-// });
-
 app.promise = function () {
 	$.when(app.authorInfo, app.getBookList).done(function (authorData, bookData) {
 		app.getBookInfo(authorData);
@@ -87,8 +59,6 @@ app.promise = function () {
 			};
 	});
 };
-
-///////////////// end new section
 
 // Access author's Goodreads page via their author ID
 app.getAuthorInfo = function () {
@@ -176,31 +146,6 @@ app.getBookList = function () {
 	});
 };
 
-// Filter books by rating
-app.filterBooks = function () {
-	app.filteredBooksByRating = [];
-	console.log("entered filterBooks");
-	// console.log(app.rating);
-	// app.bookArray.forEach(function(val, i){
-	// 	console.log(val);
-	// 	if ((val.average_rating >= app.rating) && (val.average_rating <= app.rating+(0.99))) {
-	// 		console.log("enter if")
-	// 		console.log(val.average_rating);
-	// 		app.filteredBooksByRating.push(val);
-	// 	}
-	// })
-	console.log(app.filteredBooksByRating);
-	if (app.filteredBooksByRating.length === 0) {
-		$("#books").empty();
-		$(".books h3").show().text("No books found with this rating");
-	} else {
-		$(".books h3").hide();
-		app.bookArray = app.filteredBooksByRating;
-		app.displayBooks();
-		app.sortBooks();
-	}
-};
-
 // Get author's bio information from their Goodreads profile
 app.getBookInfo = function (authorData) {
 	// Author's Goodreads profile link
@@ -233,6 +178,7 @@ var $container;
 // Display list of author's books
 app.displayBooks = function () {
 	console.log("entered displayBooks");
+	$(".filters").show();
 	// $("#books").empty();
 
 	var bookHtml = $("#authorTemplate").html();
@@ -315,9 +261,6 @@ app.sortBooks = function () {
 		console.log("showall");
 		$(".books h3").hide();
 		$(".star").removeClass("selected");
-		//app.bookArray = app.allBookArray;
-		//app.displayBooks();
-		// app.sortBooks();
 		$container.isotope({
 			filter: '*'
 		});
@@ -331,6 +274,8 @@ app.resetSearch = function () {
 		e.preventDefault();
 		$container.isotope('destroy');
 		$('#books').empty();
+		$(".filters").hide();
+		$(".stars").removeClass("selected");
 		$label.show();
 		$label.animate({}, function () {
 			$(this).removeAttr("style");
@@ -351,18 +296,6 @@ app.starHover = function () {
 	}).on("mouseleave", function () {
 		$(this).removeClass("hover").prevAll().removeClass("hover");
 	});
-	//.on("click", function(e){
-	//	e.preventDefault();
-	//	app.rating = $(this).data("rating");
-	//	app.rating = parseInt(app.rating);
-	//	console.log(app.rating);
-	//	app.bookArray = app.allBookArray;
-	//	app.filterBooks();
-	//	if ($(this).hasClass("selected") && ($(this).hasClass("hover")) ) {
-	//		$(".star").not(".hover").removeClass("selected");
-	//	}
-	//	$(this).addClass("selected").prevAll().addClass("selected");
-	//});
 };
 
 app.init = function () {
