@@ -17,6 +17,12 @@
 			<p>{{Description}}</p>
 		</div>
 	</script>
+	<script id="authorBioTemplate" type="x-handlebars-template">
+		<h2>{{name}}</h2>
+		<p>{{hometown}}</p>
+		<a href="{{profileLink}}">Goodreads Profile</a>
+		<p>{{bio}}</p>
+	</script>
 </head>
 <body>
 	<header>
@@ -78,8 +84,7 @@
 	</section>
 	<section class="authorHeading">
 		<div class="wrapper">
-			<h2></h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima harum tempora quam voluptate sequi maiores rerum adipisci, voluptates tempore quas ad, recusandae a commodi voluptatem consequatur quod, dicta omnis veniam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis, nemo, voluptatibus culpa consequuntur rerum accusantium reiciendis id neque aut odio blanditiis quis quam natus iure, delectus nulla. Unde, molestias, nam.</p>
+			<div id="authorBio"></div>
 			<a href="#" class="reset">Select Another Author</a>
 		</div>
 	</section>

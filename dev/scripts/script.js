@@ -52,18 +52,7 @@ app.getAuthorInfo = function(){
 	});
 }
 
-// Get author's bio information from their Goodreads profile
-app.getBookInfo = function(authorData){
-	// Author's Goodreads profile link
-	var authorProfile = authorData.GoodreadsResponse.author.link;
-	console.log(authorProfile);
-	// Author's hometown
-	var authorHometown = authorData.GoodreadsResponse.author.hometown;
-	console.log(authorHometown);
-	// Author's Goodreads bio
-	var about = authorData.GoodreadsResponse.author.about;
-	console.log(about);
-}
+
 
 // Function to choose author/get name by clicking pictures
 app.selectAuthor = function(){
@@ -113,15 +102,12 @@ app.getBookList = function(){
 		console.log(data);
 		var books = data.GoodreadsResponse.author.books.book;
 		books.forEach(function(val, i){
-			app.bookArray.push(val);
+			app.allBookArray.push(val);
 		})
 
 		// If the number at the end of the page is equal to the total number of books, then console.log the list of books
 
 		if (data.GoodreadsResponse.author.books.end === data.GoodreadsResponse.author.books.total) {
-			books.forEach(function(val, i) {
-				app.allBookArray.push(val);
-			})
 			
 			app.bookArray = app.allBookArray;
 			console.log(app.bookArray);
@@ -168,6 +154,42 @@ app.filterBooks = function(){
 		app.bookArray = app.allBookArray;
 		app.displayBooks();
 	})
+}
+
+// Get author's bio information from their Goodreads profile
+
+app.getBookInfo = function(authorData){
+	// Author's Goodreads profile link
+	var authorProfile = authorData.GoodreadsResponse.author.link;
+	console.log(authorProfile);
+	// app.bioArray.push(authorProfile);
+	// Author's hometown
+	var authorHometown = authorData.GoodreadsResponse.author.hometown;
+	console.log(authorHometown);
+	// app.bioArray.push(authorHometown);
+	// Author's Goodreads bio
+	var about = authorData.GoodreadsResponse.author.about;
+	console.log(about);
+	// app.bioArray.push(about);
+	app.displayBio();
+	// app.bioObject(authorData);
+
+}
+
+app.fullBio = function() {
+	var bioInformation = {
+		hometown: authorHometown,
+		profileLink: authorProfile,
+		bio: about
+	}
+}
+
+app.displayBio = function() {
+	console.log("author bio");
+	$("#authorBio").empty();
+	var bioHtml = $("#authorBioTemplate").html();
+	var bioTemplate = Handlebars.compile(bioHtml);
+	$("#authorBio").append(bioTemplate(fullBio));
 }
 
 app.displayBooks = function(){
