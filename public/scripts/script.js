@@ -68,6 +68,8 @@ app.selectAuthor = function () {
 			height: 200
 		}, "slow");
 		$(".authorHeading").fadeIn();
+		// On author select, calls the function to get
+		app.getBookInfo;
 		$(".authorHeading h2").text(app.author);
 	});
 };
@@ -151,40 +153,35 @@ app.filterBooks = function () {
 };
 
 // Get author's bio information from their Goodreads profile
-
 app.getBookInfo = function (authorData) {
 	// Author's Goodreads profile link
-	var authorProfile = authorData.GoodreadsResponse.author.link;
-	console.log(authorProfile);
-	// app.bioArray.push(authorProfile);
+	app.authorProfile = authorData.GoodreadsResponse.author.link;
 	// Author's hometown
-	var authorHometown = authorData.GoodreadsResponse.author.hometown;
-	console.log(authorHometown);
-	// app.bioArray.push(authorHometown);
+	app.authorHometown = authorData.GoodreadsResponse.author.hometown;
 	// Author's Goodreads bio
-	var about = authorData.GoodreadsResponse.author.about;
-	console.log(about);
-	// app.bioArray.push(about);
-	app.displayBio();
-	// app.bioObject(authorData);
-};
-
-app.fullBio = function () {
-	var bioInformation = {
-		hometown: authorHometown,
-		profileLink: authorProfile,
-		bio: about
+	app.authorAbout = authorData.GoodreadsResponse.author.about;
+	// Stores all of this information in an object for Handlebars to access
+	app.bioInformation = {
+		profile: app.authorProfile,
+		hometown: app.authorHometown,
+		about: app.authorAbout
 	};
+	console.log(app.bioInformation);
+	// Calls the Handlebars function for displaying the author's biography info
+	app.displayBio();
 };
 
+// Display author's biography information
 app.displayBio = function () {
-	console.log("author bio");
+	console.log(app.bioInformation);
+	console.log("enter display bio");
 	$("#authorBio").empty();
 	var bioHtml = $("#authorBioTemplate").html();
 	var bioTemplate = Handlebars.compile(bioHtml);
-	$("#authorBio").append(bioTemplate(fullBio));
+	$("#authorBio").append(bioTemplate(app.bioInformation));
 };
 
+// Display list of author's books
 app.displayBooks = function () {
 	console.log("entered displayBooks");
 	$("#books").empty();
