@@ -33,6 +33,68 @@ app.getAuthorID = function(){
 	});
 }
 
+/////////////////// this section is brand new
+// app.getAuthorInfo = $.ajax({
+//     url: 'http://proxy.hackeryou.com',
+//     dataType: 'json',
+//     method:'GET',
+//     data: {
+//         reqUrl: app.authorInfoUrl + app.authorID,
+// 		params: {
+// 			key: app.apiKey
+// 		},
+//         xmlToJSON: true
+//     };
+// });
+
+// app.getBookList = $.ajax({
+//     url: 'http://proxy.hackeryou.com',
+//     dataType: 'json',
+//     method: 'GET',
+//     data: {
+//         reqUrl: app.authorBooksUrl + app.authorID,
+// 		params: {
+// 			key: app.apiKey,
+// 			page: app.page
+// 		},
+//         xmlToJSON: true
+//     };
+// });
+
+app.promise = function() {
+	$.when(app.authorInfo, app.getBookList)
+	.done(function(authorData, bookData){
+		app.getBookInfo(authorData);
+
+		var books = bookData.GoodreadsResponse.author.books.book;
+				books.forEach(function(val, i){
+					app.allBookArray.push(val);
+				})
+
+				// If the number at the end of the page is equal to the total number of books, then console.log the list of books
+
+				if (data.GoodreadsResponse.author.books.end === data.GoodreadsResponse.author.books.total) {
+					
+					app.bookArray = app.allBookArray;
+					console.log(app.bookArray);
+					app.displayBooks();
+
+				// If the number at the end of the page is equal to the total number of books, then console.log the list of books
+				// Otherwise, add one to app.page and run the function again.
+
+				} else { 
+				app.page++;
+				app.getBookList();
+			    console.log(data.GoodreadsResponse.author.books.end);
+				};
+
+	})
+}
+
+
+
+///////////////// end new section
+
 // Access author's Goodreads page via their author ID
 app.getAuthorInfo = function(){
 	$.ajax({
@@ -201,6 +263,7 @@ app.displayBooks = function(){
 	   	},
 	    getSortData: {
 	    	name: '.name',
+	    	year: '.publicationYear span',
 		    number: function( bookRating ) {
 		        var rating = $( bookRating ).find('.rating span').text();
 		        console.log(rating);
@@ -231,6 +294,16 @@ app.sortBooks = function(){
 				number: false
 			}
 		 });
+	});
+
+	$("#sortByPubYear").on("click", function(e){
+		e.preventDefault();
+		$container.isotope({
+			sortBy: 'year',
+			sortAscending: {
+				year: false
+			}
+		});
 	});
 
 
