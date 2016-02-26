@@ -8,14 +8,20 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.js"></script>
 	<script id="authorTemplate" type="x-handlebars-template">
-		<div class="author">
-			<h2>{{title}}</h2>
-			<img src="{{image_url}}" alt="">
-			
-			<p>Average rating: {{average_rating}}</p>
-			<p>Publication year: {{publication_year}}</p>
-			<p>{{Description}}</p>
-		</div>
+		<div class="book-gallery">
+			<div class="author-flex-container">
+				<div class="book-image">
+					<img src="{{image_url}}" alt="">
+				</div>		
+				<div class="book-specs-flex">	
+					<h2>{{title}}</h2>
+					<p>Average rating: {{average_rating}}</p>
+					<p>Publication year: {{publication_year}}</p>
+					<p>{{Description}}</p>
+				</div>	
+			</div>
+		</div>		
+
 	</script>
 	<script id="authorBioTemplate" type="x-handlebars-template">
 		<h2>{{name}}</h2>
@@ -28,7 +34,7 @@
 	<header>
 		<div class="wrapper">
 
-			<h1>Discover Canadian Women Authors</h1>
+			<h1>Discover <br> Canadian Women Authors</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, id aspernatur impedit nemo itaque inventore est deserunt quod, cumque ea aliquid obcaecati, alias eaque beatae distinctio temporibus fugit nobis aperiam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus cupiditate sequi, odit excepturi reiciendis tempora nobis vel incidunt ipsa harum, libero, quisquam impedit, obcaecati suscipit eius minima quia. Laboriosam, consectetur!</p>
 
 
