@@ -41,6 +41,7 @@ input[type=radio] {
 				}
 				img {
 				width:100%;
+				margin: 0;
 				}
 		}
 		label[for=lisaMoore] {
@@ -63,11 +64,12 @@ input[type=radio] {
 
 .authorHeading {
 	border: 1px solid black;
-	height: 200px;
-	width: 100%;
-	padding-left: 25%;
+	height: auto;
+	width: 90%;
+	padding-left: 22%;
 	display: none;
 	background: $offwhite;
+	margin: 0 auto;
 }
 
 h1, h2, h3, h4, h5 {
@@ -102,10 +104,10 @@ h1 {
 // ---------BOOK GALLERY/LIST SECTION-----
 // generated from scripts.js. to do: re-name classes in this section.
 #books {
-	float: left;
+	width: 100%;
 }
 
-.book-gallery {
+.book-image-specs-container {
 	width: calc(50% - 4rem);
 	background: $pinkish;
 	margin: 2rem;
@@ -113,19 +115,16 @@ h1 {
 	-webkit-box-shadow: 7px 7px 23px -8px rgba(43,44,67,1);
 	-moz-box-shadow: 7px 7px 23px -8px rgba(43,44,67,1);
 	box-shadow: 7px 7px 23px -8px rgba(43,44,67,1);
-}
-
-.author-container {
-	// display: flex;
-	margin: 2rem;
+	height: 250px;
 }
 
 .book-image {
 	float: left;
+	padding: 5%;
 }
 
 .book-specs {
-		padding-left: 1rem;
+		padding-left: 13rem;
 	h2 {
 		font-size: 2rem;
 	}

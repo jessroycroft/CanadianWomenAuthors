@@ -8,18 +8,16 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.js"></script>
 	<script id="authorTemplate" type="x-handlebars-template">
-		<div class="book-gallery">
-			<div class="author-container">
-				<div class="book-image">
-					<img src="{{image_url}}" alt="">
-				</div>		
-				<div class="book-specs">	
-					<h2>{{title}}</h2>
-					<p>Average rating: {{average_rating}}</p>
-					<p>Publication year: {{publication_year}}</p>
-					<p>{{Description}}</p>
-				</div>	
-			</div>
+		<div class="book-image-specs-container clearfix">
+			<div class="book-image">
+				<img src="{{image_url}}" alt="">
+			</div>		
+			<div class="book-specs">	
+				<h2>{{title}}</h2>
+				<p>Average rating: {{average_rating}}</p>
+				<p>Publication year: {{publication_year}}</p>
+				<p>{{Description}}</p>
+			</div>	
 		</div>		
 
 	</script>
@@ -114,6 +112,7 @@
 		<div class="wrapper">
 			<h3></h3>
 			<div class="books" id="books">
+			<!-- book empty div for book image and specs -->
 			</div>
 		</div>
 	</section>
