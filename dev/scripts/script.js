@@ -173,7 +173,7 @@ app.getBookInfo = function(authorData){
 		about: app.authorAbout
 	};
 	console.log(app.bioInformation);
-	// Calls the Handlebars function for displaying the author's biography info
+		// Calls the Handlebars function for displaying the author's biography info
 	app.displayBio();
 }
 
@@ -249,5 +249,6 @@ app.init = function(){
 
 
 $(function() {
+	console.log("running");
    app.init();
 });
