@@ -243,11 +243,10 @@ app.sortBooks = function(){
     	console.log(filterValue);
 
     	$container.isotope({
-     	 // filter element with numbers greater than 50
+     	 // filter element with numbers greater than filterValue
     	  	filter: function() {
 	     	   	// _this_ is the item element. Get text of element's .number
 	      	  	var number = $(this).find('.rating span').text();
-	      	  	// return true to show, false to hide
 	        	return ( parseFloat( number ) >= filterValue )
       		} //close filter fn
     	}); //close $container
