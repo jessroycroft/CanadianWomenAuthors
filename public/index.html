@@ -9,11 +9,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.js"></script>
 	<script id="authorTemplate" type="x-handlebars-template">
 		<div class="book-gallery">
-			<div class="author-flex-container">
+			<div class="author-container">
 				<div class="book-image">
 					<img src="{{image_url}}" alt="">
 				</div>		
-				<div class="book-specs-flex">	
+				<div class="book-specs">	
 					<h2>{{title}}</h2>
 					<p>Average rating: {{average_rating}}</p>
 					<p>Publication year: {{publication_year}}</p>
@@ -104,6 +104,10 @@
 				<i class="fa fa-star-o fa-2x star fiveStar" data-rating="5.00"></i>
 				<a href="showAll" id="showAll">Show All</a>
 			</div>
+			<div class="sort">
+                <a href="#" id="sortByRating">Sort by Rating</a>
+                <a href="#" id="sortByTitle">Sort by Title</a>
+            </div>
 		</div>
 	</section>
 	<section class="books">

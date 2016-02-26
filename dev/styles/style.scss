@@ -102,29 +102,30 @@ h1 {
 // ---------BOOK GALLERY/LIST SECTION-----
 // generated from scripts.js. to do: re-name classes in this section.
 #books {
-	display: flex;
-	flex-wrap: wrap;
+	float: left;
 }
 
 .book-gallery {
 	width: calc(50% - 4rem);
 	background: $pinkish;
 	margin: 2rem;
+	float: left;
 	-webkit-box-shadow: 7px 7px 23px -8px rgba(43,44,67,1);
 	-moz-box-shadow: 7px 7px 23px -8px rgba(43,44,67,1);
 	box-shadow: 7px 7px 23px -8px rgba(43,44,67,1);
 }
 
-.author-flex-container {
-	display: flex;
+.author-container {
+	// display: flex;
 	margin: 2rem;
 }
 
-.book-specs-flex {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	padding-left: 1rem;
+.book-image {
+	float: left;
+}
+
+.book-specs {
+		padding-left: 1rem;
 	h2 {
 		font-size: 2rem;
 	}
