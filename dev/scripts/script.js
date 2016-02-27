@@ -280,14 +280,17 @@ app.sortBooks = function(){
 
 app.noResults = function() {
 
-	if ( $(".book-gallery").filter(":visible").length > 0 ) {
-		$(".books p").show();
-		console.log("entered if");
-	} else if ( $(".book-gallery").filter(":visible").length == 0 ){
-		console.log("entered else");
-		$(".books p").hide();
-	}
-}
+	//arrayOfDisplayBlock = [];
+	$(".book-gallery").each(function(){
+		var displayStatus = $(this).css("display");
+		console.log(displayStatus)
+		if ($(this).css("display") === "block") {
+			console.log("displayblock");
+		//	arrayOfDisplayBlock.push($(this));
+		}
+		//console.log(arrayOfDisplayBlock);
+	});
+};
 
 // Reset button for authors
 app.resetSearch = function() {
@@ -301,14 +304,14 @@ app.resetSearch = function() {
 		$label.show();
 		$label.animate ({
 		}, function(){ $(this).removeAttr("style")} )
-		$label.find("p").show();
+		$label.find("p").removeAttr('style');
 		$label.find("img").animate({
 			width: 150,
 			height: 150
 		}, "slow");
 		$(".authorHeading").hide();
-	});
-}
+	})
+};
 
 // Hover effects for stars
 app.starHover = function(){
