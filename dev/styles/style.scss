@@ -123,11 +123,25 @@ p {
 
 .filters {
 	display: none;
+	.wrapper {
+		padding: 3%;
+		.rating {
+			float: left;
+			width: 25%;
+		}
+		.sort {
+			float: left;
+			margin-top: 45px;
+			width: 70%;
+			a {
+				padding: 2%;
+				margin-left: 2%;
+				border: 1px solid red;
+			}
+		}
+	}
 }
 
-.filters .wrapper {
-	padding: 3%;
-}
 
 .star {
 	color: gray;
