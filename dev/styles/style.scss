@@ -21,21 +21,16 @@ body {
 header {
 	padding: 5%;
 	.wrapper {
-		padding: 10%;
+		padding: 5%;
 	}
 }
 
-.main .wrapper {
-	padding: 5% 8%;
-}
-
 .wrapper {
-	// padding: 2%;
 	width: 90%;
 	max-width: 1080px;
 	margin: 0 auto;
 	background-color: $offwhite;
-
+	height: auto;
 }
 
 input[type=radio] {
@@ -48,13 +43,20 @@ input[type=radio] {
 		position: relative;
 		label {
 			display: inline-block;
+			padding: 0;
+			margin: 0;
 			.authorLabel {
 			width: 200px;
 			height: 200px;
+			padding: 10%;
 				}
 				img {
-				width:100%;
-				margin: 5%;
+					width:100%;
+					padding: 0;
+				}
+				p {
+					margin: 0 auto 2%;
+					padding: 3%
 				}
 		}
 		label[for=lisaMoore] {
@@ -97,28 +99,27 @@ a {
 	color: $red;
 }
 
-// h1 {
-// 	font-size: 7rem;
-// 	text-align: left;
-// 	text-shadow: 0.2px 0.3px $offwhite;
-// 	color: $blueish;
-// 	font-weight: 300;
-// 	letter-spacing: 0.1px;
-// 	text-transform: uppercase;
-// }
-
-h1 {
+header h1 {
 	font-size: 7rem;
-	text-align: left;
+	text-align: center;
 	color: $blue;
 	font-weight: 700;
 	letter-spacing: -0.5rem;
 	line-height: 8rem;
 	text-transform: uppercase;
+	@media (max-width: 500px) {
+	font-size: 5rem;
+	line-height: 5rem;	
+	}
 }
 
-p {
-	font-size: 1.6rem;
+header p {
+	font-size: 2rem;
+	text-align: center;
+	letter-spacing: 0.1rem;
+	@media (max-width: 500px) {
+	font-size: 1.5rem;
+	}
 }
 
 .filters {
@@ -175,7 +176,13 @@ p {
 	-webkit-box-shadow: 7px 7px 23px -8px rgba(43,44,67,1);
 	-moz-box-shadow: 7px 7px 23px -8px rgba(43,44,67,1);
 	box-shadow: 7px 7px 23px -8px rgba(43,44,67,1);
-	height: 250px;
+	height: 220px;
+	@media (max-width: 767px) {
+		width: 90%;
+		height: auto;
+		display: block;
+		margin-top: 2rem;
+	}
 }
 
 .book-image {
@@ -184,15 +191,33 @@ p {
 }
 
 .book-specs {
-		padding-left: 13rem;
+	padding-left: 13rem;
 	h2 {
-		font-size: 2rem;
+	font-size: 2rem;
+	padding: 2%;
 	}
 	p {
-		margin-top: 0.3rem;
-		margin-bottom: 0.3rem;
+	text-align: left;
+	margin-top: 0.3rem;
+	margin-bottom: 0.3rem;
+	font-size: 1.5rem;
+
 	}	
-	
 }
+
+#authorBio {
+color: green;
+}
+
+p.link-to-goodreads a {
+ color: pink;
+}
+
+p.hometown {
+	color: cyan;
+}
+
+
+
 
 
