@@ -80,7 +80,7 @@ app.getAuthorInfo = function(){
 	    }
 	}).then(function(data) {
 	    console.log(data);
-	    app.getBookInfo(data);
+	    app.displayBio(data);
 	});
 }
 
@@ -153,38 +153,26 @@ app.getBookList = function(){
 		app.page++;
 		app.getBookList();
 	    console.log(data.GoodreadsResponse.author.books.end);
+	    console.log(data);
 		};
 	});
 };
 
-
-// Get author's bio information from their Goodreads profile
-app.getBookInfo = function(authorData){
-	// Author's Goodreads profile link
-	app.authorProfile = authorData.GoodreadsResponse.author.link;
-	// Author's hometown
-	app.authorHometown = authorData.GoodreadsResponse.author.hometown;
-	// Author's Goodreads bio
-	app.authorAbout = authorData.GoodreadsResponse.author.about;
-	// Stores all of this information in an object for Handlebars to access
-	app.bioInformation = {
-		profile: app.authorProfile,
-		hometown: app.authorHometown,
-		about: app.authorAbout
-	};
-	console.log(app.bioInformation);
-		// Calls the Handlebars function for displaying the author's biography info
-	app.displayBio();
-}
-
 // Display author's biography information
-app.displayBio = function() {
-	console.log(app.bioInformation);
-	console.log("enter display bio");
-	$("#authorBio").empty();
-	var bioHtml = $("#authorBioTemplate").html();
-	var bioTemplate = Handlebars.compile(bioHtml);
-	$("#authorBio").append(bioTemplate(app.bioInformation));
+app.displayBio = function(bioInformation) {
+	console.log("hi");
+	$.each(bioInformation, function(i, info) {
+		var authorProfile = $("<p>").html("<a href='" + bioInformation.GoodreadsResponse.author.link + "'>See her Goodreads profile</a>");
+		console.log(bioInformation.GoodreadsResponse.author.link);
+		var authorHometown = $("<p>").html(bioInformation.GoodreadsResponse.author.hometown);
+		// Author's Goodreads bio
+		var weirdAuthorAbout = bioInformation.GoodreadsResponse.author.about;
+		var cleanAuthorAbout = weirdAuthorAbout.replace(/&lt;br ?\/\>|&lt;br ?\/&rt;|\<br ?\/\>/g, "\n");
+		// var authorAbout = $("<p>").html(bioInformation.GoodreadsResponse.author.about);
+		var authorAbout = $("<p>").html(cleanAuthorAbout);
+		$("#authorBio").empty();
+		$("#authorBio").append(authorHometown, authorProfile, authorAbout);
+	})
 }
 var $container;
 // Display list of author's books

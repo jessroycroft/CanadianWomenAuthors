@@ -14,19 +14,13 @@
 				<img src="{{image_url}}" alt="">
 			</div>		
 			<div class="book-specs">	
-				<h2 class="name">{{title}}</h2>
+				<h2 class="name">{{{title}}}</h2>
 				<p class="rating">Average rating: <span>{{average_rating}}</span></p>
 				<p class="publicationYear">Publication year: <span>{{publication_year}}</span></p>
 				<p>{{Description}}</p>
 			</div>	
 		</div>		
 
-	</script>
-	<script id="authorBioTemplate" type="x-handlebars-template">
-		<h2></h2>
-		<p>{{hometown}}</p>
-		<a href="{{profile}}">Goodreads Profile</a>
-		<p>{{{about}}}</p>
 	</script>
 </head>
 <body>
@@ -89,6 +83,7 @@
 	</section>
 	<section class="authorHeading">
 		<div class="wrapper">
+			<h2></h2>
 			<div id="authorBio"></div>
 			<a href="#" class="reset">Select Another Author</a>
 		</div>
@@ -114,7 +109,6 @@
 		<div class="wrapper">
 			<h3></h3>
 			<div class="books" id="books">
-			<!-- book empty div for book image and specs -->
 			</div>
 		</div>
 	</section>
