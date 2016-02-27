@@ -127,24 +127,28 @@ app.getBookList = function () {
 		books.forEach(function (val, i) {
 			app.allBookArray.push(val);
 		});
+		app.compareBookList(data);
+	});
+};
+
+// If the number at the end of the page is equal to the total number of books, then console.log the list of books
+
+app.compareBookList = function (bookList) {
+
+	if (bookList.GoodreadsResponse.author.books.end === bookList.GoodreadsResponse.author.books.total) {
+
+		app.bookArray = app.allBookArray;
+		console.log(app.bookArray);
+		app.displayBooks();
 
 		// If the number at the end of the page is equal to the total number of books, then console.log the list of books
-
-		if (data.GoodreadsResponse.author.books.end === data.GoodreadsResponse.author.books.total) {
-
-			app.bookArray = app.allBookArray;
-			console.log(app.bookArray);
-			app.displayBooks();
-
-			// If the number at the end of the page is equal to the total number of books, then console.log the list of books
-			// Otherwise, add one to app.page and run the function again.
-		} else {
-				app.page++;
-				app.getBookList();
-				console.log(data.GoodreadsResponse.author.books.end);
-				console.log(data);
-			};
-	});
+		// Otherwise, add one to app.page and run the function again.
+	} else {
+			app.page++;
+			app.getBookList();
+			console.log(bookList.GoodreadsResponse.author.books.end);
+			console.log(bookList);
+		};
 };
 
 // Display author's biography information
@@ -155,10 +159,9 @@ app.displayBio = function (bioInformation) {
 		console.log(bioInformation.GoodreadsResponse.author.link);
 		var authorHometown = $("<p>").html(bioInformation.GoodreadsResponse.author.hometown);
 		// Author's Goodreads bio
-		var weirdAuthorAbout = bioInformation.GoodreadsResponse.author.about;
-		var cleanAuthorAbout = weirdAuthorAbout.replace(/&lt;br ?\/\>|&lt;br ?\/&rt;|\<br ?\/\>/g, "\n");
-		// var authorAbout = $("<p>").html(bioInformation.GoodreadsResponse.author.about);
-		var authorAbout = $("<p>").html(cleanAuthorAbout);
+		var weirdAbout = bioInformation.GoodreadsResponse.author.about;
+		// This is not secure and should not be used but we used it!
+		var authorAbout = $("<p>").html(weirdAbout).text();
 		$("#authorBio").empty();
 		$("#authorBio").append(authorHometown, authorProfile, authorAbout);
 	});
@@ -188,7 +191,6 @@ app.displayBooks = function () {
 			year: '.publicationYear span',
 			number: function number(bookRating) {
 				var rating = $(bookRating).find('.rating span').text();
-				console.log(rating);
 				return parseFloat(rating.replace(/[\(\)]/g, ''));
 			} //closes number
 		} //closes getSortData
