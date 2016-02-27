@@ -75,7 +75,7 @@ app.getAuthorInfo = function () {
 		}
 	}).then(function (data) {
 		console.log(data);
-		app.getBookInfo(data);
+		app.displayBio(data);
 	});
 };
 
@@ -127,52 +127,44 @@ app.getBookList = function () {
 		books.forEach(function (val, i) {
 			app.allBookArray.push(val);
 		});
-
-		// If the number at the end of the page is equal to the total number of books, then console.log the list of books
-
-		if (data.GoodreadsResponse.author.books.end === data.GoodreadsResponse.author.books.total) {
-
-			app.bookArray = app.allBookArray;
-			console.log(app.bookArray);
-			app.displayBooks();
-
-			// If the number at the end of the page is equal to the total number of books, then console.log the list of books
-			// Otherwise, add one to app.page and run the function again.
-		} else {
-				app.page++;
-				app.getBookList();
-				console.log(data.GoodreadsResponse.author.books.end);
-			};
+		app.compareBookList(data);
 	});
 };
 
-// Get author's bio information from their Goodreads profile
-app.getBookInfo = function (authorData) {
-	// Author's Goodreads profile link
-	app.authorProfile = authorData.GoodreadsResponse.author.link;
-	// Author's hometown
-	app.authorHometown = authorData.GoodreadsResponse.author.hometown;
-	// Author's Goodreads bio
-	app.authorAbout = authorData.GoodreadsResponse.author.about;
-	// Stores all of this information in an object for Handlebars to access
-	app.bioInformation = {
-		profile: app.authorProfile,
-		hometown: app.authorHometown,
-		about: app.authorAbout
-	};
-	console.log(app.bioInformation);
-	// Calls the Handlebars function for displaying the author's biography info
-	app.displayBio();
+// If the number at the end of the page is equal to the total number of books, then console.log the list of books
+
+app.compareBookList = function (bookList) {
+
+	if (bookList.GoodreadsResponse.author.books.end === bookList.GoodreadsResponse.author.books.total) {
+
+		app.bookArray = app.allBookArray;
+		console.log(app.bookArray);
+		app.displayBooks();
+
+		// If the number at the end of the page is equal to the total number of books, then console.log the list of books
+		// Otherwise, add one to app.page and run the function again.
+	} else {
+			app.page++;
+			app.getBookList();
+			console.log(bookList.GoodreadsResponse.author.books.end);
+			console.log(bookList);
+		};
 };
 
 // Display author's biography information
-app.displayBio = function () {
-	console.log(app.bioInformation);
-	console.log("enter display bio");
-	$("#authorBio").empty();
-	var bioHtml = $("#authorBioTemplate").html();
-	var bioTemplate = Handlebars.compile(bioHtml);
-	$("#authorBio").append(bioTemplate(app.bioInformation));
+app.displayBio = function (bioInformation) {
+	console.log("hi");
+	$.each(bioInformation, function (i, info) {
+		var authorProfile = $("<p>").html("<a href='" + bioInformation.GoodreadsResponse.author.link + "'>See her Goodreads profile</a>");
+		console.log(bioInformation.GoodreadsResponse.author.link);
+		var authorHometown = $("<p>").html(bioInformation.GoodreadsResponse.author.hometown);
+		// Author's Goodreads bio
+		var weirdAbout = bioInformation.GoodreadsResponse.author.about;
+		// This is not secure and should not be used but we used it!
+		var authorAbout = $("<p>").html(weirdAbout).text();
+		$("#authorBio").empty();
+		$("#authorBio").append(authorHometown, authorProfile, authorAbout);
+	});
 };
 var $container;
 // Display list of author's books
@@ -199,7 +191,6 @@ app.displayBooks = function () {
 			year: '.publicationYear span',
 			number: function number(bookRating) {
 				var rating = $(bookRating).find('.rating span').text();
-				console.log(rating);
 				return parseFloat(rating.replace(/[\(\)]/g, ''));
 			} //closes number
 		} //closes getSortData
