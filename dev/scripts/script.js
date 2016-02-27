@@ -95,7 +95,8 @@ app.selectAuthor = function(){
 		app.getAuthorID();
 		console.log(app.author);
 		$(this).siblings().hide();
-		$(this).find("p").hide();
+		//$(this).find("p").hide();
+		$(this).find("p").css("font-size", "24px");
 		$(this)
 			.css("position", "absolute")
 			.animate({
@@ -108,7 +109,7 @@ app.selectAuthor = function(){
 		$(".authorHeading").fadeIn();
 		// On author select, calls the function to get
 		app.getBookInfo;
-		$(".authorHeading h2").text(app.author);
+		//$(".authorHeading h2").text(app.author);
 	});
 
 }
@@ -166,15 +167,19 @@ app.displayBio = function(bioInformation) {
 	console.log("hi");
 	console.log(bioInformation);
 	$.each(bioInformation, function(i, info) {
-		var authorProfile = $("<p>").html("<a href='" + bioInformation.GoodreadsResponse.author.link + "'>See her Goodreads profile</a>");
+		var authorProfile = $("<p class='link-to-goodreads'>").html("<a href='" + bioInformation.GoodreadsResponse.author.link + "'>See her Goodreads profile</a>");
 		console.log(bioInformation.GoodreadsResponse.author.link);
-		var authorHometown = $("<p>").html(bioInformation.GoodreadsResponse.author.hometown);
+		var authorHometown = $("<p class='hometown'>").html(bioInformation.GoodreadsResponse.author.hometown);
+
 		// Author's Goodreads bio
 		var weirdAbout = bioInformation.GoodreadsResponse.author.about;
 		// This is not secure and should not be used but we used it!
 		var authorAbout = $("<p>").html(weirdAbout).text();
 		$("#authorBio").empty();
-		$("#authorBio").append(authorHometown, authorProfile, authorAbout);
+		$("#authorBio").append(authorProfile, authorAbout);
+
+		var hometown = $("<p>").html(bioInformation.GoodreadsResponse.author.hometown);
+		$(".authorLabel").append(hometown);
 	})
 }
 var $container;
@@ -262,18 +267,33 @@ app.sortBooks = function(){
 	        	return ( parseFloat( number ) >= filterValue )
       		} //close filter fn
     	}); //close $container
+    	
+    	app.noResults();
     });
 
     $("#showAll").on("click", function(e){
     	e.preventDefault();
-    	console.log("showall")
-    	$(".books h3").hide();
+    	$(".books p").hide();
     	$(".star").removeClass("selected");
     	$container.isotope({
     	    filter: '*'
     	});
     });
 }
+
+app.noResults = function() {
+
+	//arrayOfDisplayBlock = [];
+	$(".book-gallery").each(function(){
+		var displayStatus = $(this).css("display");
+		console.log(displayStatus)
+		if ($(this).css("display") === "block") {
+			console.log("displayblock");
+		//	arrayOfDisplayBlock.push($(this));
+		}
+		//console.log(arrayOfDisplayBlock);
+	});
+};
 
 // Reset button for authors
 app.resetSearch = function() {
@@ -287,14 +307,14 @@ app.resetSearch = function() {
 		$label.show();
 		$label.animate ({
 		}, function(){ $(this).removeAttr("style")} )
-		$label.find("p").show();
+		$label.find("p").removeAttr('style');
 		$label.find("img").animate({
 			width: 150,
 			height: 150
 		}, "slow");
 		$(".authorHeading").hide();
-	});
-}
+	})
+};
 
 // Hover effects for stars
 app.starHover = function(){
