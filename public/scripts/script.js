@@ -155,9 +155,9 @@ app.compareBookList = function (bookList) {
 app.displayBio = function (bioInformation) {
 	console.log("hi");
 	$.each(bioInformation, function (i, info) {
-		var authorProfile = $("<p>").html("<a href='" + bioInformation.GoodreadsResponse.author.link + "'>See her Goodreads profile</a>");
+		var authorProfile = $("<p class='link-to-goodreads'>").html("<a href='" + bioInformation.GoodreadsResponse.author.link + "'>See her Goodreads profile</a>");
 		console.log(bioInformation.GoodreadsResponse.author.link);
-		var authorHometown = $("<p>").html(bioInformation.GoodreadsResponse.author.hometown);
+		var authorHometown = $("<p class='hometown'>").html(bioInformation.GoodreadsResponse.author.hometown);
 		// Author's Goodreads bio
 		var weirdAbout = bioInformation.GoodreadsResponse.author.about;
 		// This is not secure and should not be used but we used it!
