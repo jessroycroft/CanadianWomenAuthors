@@ -47,7 +47,7 @@ app.promise = function () {
 		if (data.GoodreadsResponse.author.books.end === data.GoodreadsResponse.author.books.total) {
 
 			app.bookArray = app.allBookArray;
-			console.log(app.bookArray);
+			// console.log(app.bookArray);
 			app.displayBooks();
 
 			// If the number at the end of the page is equal to the total number of books, then console.log the list of books
@@ -139,8 +139,8 @@ app.compareBookList = function (bookList) {
 	if (bookList.GoodreadsResponse.author.books.end === bookList.GoodreadsResponse.author.books.total) {
 
 		app.bookArray = app.allBookArray;
-		console.log(app.bookArray);
-		app.displayBooks();
+		// console.log(app.bookArray);
+		app.displayBooks(bookList);
 
 		// If the number at the end of the page is equal to the total number of books, then console.log the list of books
 		// Otherwise, add one to app.page and run the function again.
@@ -155,6 +155,7 @@ app.compareBookList = function (bookList) {
 // Display author's biography information
 app.displayBio = function (bioInformation) {
 	console.log("hi");
+	console.log(bioInformation);
 	$.each(bioInformation, function (i, info) {
 		var authorProfile = $("<p class='link-to-goodreads'>").html("<a href='" + bioInformation.GoodreadsResponse.author.link + "'>See her Goodreads profile</a>");
 		console.log(bioInformation.GoodreadsResponse.author.link);
@@ -176,38 +177,41 @@ app.displayBio = function (bioInformation) {
 };
 var $container;
 // Display list of author's books
-app.displayBooks = function () {
-	console.log("entered displayBooks");
+app.displayBooks = function (soManyBooks) {
 	$(".filters").show();
-	// $("#books").empty();
-
-	var bookHtml = $("#authorTemplate").html();
-	var bookTemplate = Handlebars.compile(bookHtml);
-	app.bookArray.forEach(function (data, i) {
-		$("#books").append(bookTemplate(data));
-	});
-
-	$container = $('#books').isotope({
-		itemSelector: '.book-gallery',
-		percentPosition: true,
-		// layoutMode: 'vertical',
-		masonry: {
-			columnWidth: '.book-gallery'
-		},
-		getSortData: {
-			name: '.name',
-			year: '.publicationYear span',
-			number: function number(bookRating) {
-				var rating = $(bookRating).find('.rating span').text();
-				return parseFloat(rating.replace(/[\(\)]/g, ''));
-			} //closes number
-		} //closes getSortData
-	}); // closes $container
-
-	$container.imagesLoaded().progress(function () {
-		$container.isotope('layout');
+	console.log(app.bookArray[8].publication_year);
+	$.each(app.bookArray, function (i, item) {
+		var title = $("<h2>").html(item.title);
+		var rating = $("<p class='rating'>").html("Average rating: <span>" + item.average_rating + "</span>");
+		var publicationYear = $("<p class='publicationYear'>").html("Publication year: <span>" + item.publication_year + "</span>");
+		var image = $("<img>").attr("src", item.image_url);
+		var bookImage = $("<div>").addClass("book-image").append(image);
+		var bookSpecs = $("<div>").addClass("book-specs").append(title, rating, publicationYear);
+		var galleryItem = $("<div>").addClass("book-gallery").append(bookImage, bookSpecs);
+		$("#books").append(galleryItem);
 	});
 };
+
+$container = $('#books').isotope({
+	itemSelector: '.book-gallery',
+	percentPosition: true,
+	// layoutMode: 'vertical',
+	masonry: {
+		columnWidth: '.book-gallery'
+	},
+	getSortData: {
+		name: '.name',
+		year: '.publicationYear span',
+		number: function number(bookRating) {
+			var rating = $(bookRating).find('.rating span').text();
+			return parseFloat(rating.replace(/[\(\)]/g, ''));
+		} //closes number
+	} //closes getSortData
+}); // closes $container
+
+$container.imagesLoaded().progress(function () {
+	$container.isotope('layout');
+});
 
 app.sortBooks = function () {
 
