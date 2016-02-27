@@ -158,17 +158,14 @@ app.displayBio = function (bioInformation) {
 	$.each(bioInformation, function (i, info) {
 		var authorProfile = $("<p class='link-to-goodreads'>").html("<a href='" + bioInformation.GoodreadsResponse.author.link + "'>See her Goodreads profile</a>");
 		console.log(bioInformation.GoodreadsResponse.author.link);
-<<<<<<< HEAD
 		var authorHometown = $("<p class='hometown'>").html(bioInformation.GoodreadsResponse.author.hometown);
-=======
-		//var authorHometown = $("<p>").html(bioInformation.GoodreadsResponse.author.hometown);
->>>>>>> ba7216cb5020109389de6646affc874d32b87e3f
+
 		// Author's Goodreads bio
 		var weirdAbout = bioInformation.GoodreadsResponse.author.about;
 		// This is not secure and should not be used but we used it!
 		var authorAbout = $("<p>").html(weirdAbout).text();
 		$("#authorBio").empty();
-		$("#authorBio").append(authorProfile, authorAbout);
+		$("#authorBio").append(authorAbout, authorProfile);
 
 		var hometown = $("<p>").html(bioInformation.GoodreadsResponse.author.hometown);
 		$(".authorLabel").append(hometown);

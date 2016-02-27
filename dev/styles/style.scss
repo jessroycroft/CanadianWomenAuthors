@@ -48,7 +48,7 @@ input[type=radio] {
 			.authorLabel {
 			width: 200px;
 			height: 200px;
-			padding: 10%;
+			padding: 20%;
 				}
 				img {
 					width:100%;
@@ -56,7 +56,10 @@ input[type=radio] {
 				}
 				p {
 					margin: 0 auto 2%;
-					padding: 3%
+					text-align: left; 
+					padding: 0;
+					width: 40rem;
+
 				}
 		}
 		label[for=lisaMoore] {
@@ -75,19 +78,6 @@ input[type=radio] {
 			left: 77%;
 		}
 	}
-}
-
-.authorHeading {
-	// border: 1px solid black;
-	// height: 200px;
-	width: 100%;
-	padding-left: 25%;
-	border: 1px solid black;
-	height: auto;
-	width: 90%;
-	display: none;
-	background: $offwhite;
-	margin: 0 auto;
 }
 
 h1, h2, h3, h4, h5 {
@@ -156,6 +146,31 @@ header p {
 	color: #E4CA71;
 }
 
+.authorHeading {
+	// border: 1px solid black;
+	// height: 200px;
+	width: 100%;
+	padding-left: 25%;
+	border: 1px solid black;
+	height: auto;
+	width: 90%;
+	display: none;
+	background: $offwhite;
+	margin: 0 auto;
+	overflow: contain;
+	#authorBio {
+		margin: 4rem;
+	}
+}
+
+p.link-to-goodreads {
+	text-align: right;
+}
+
+p.hometown {
+	
+}
+
 
 // ---------BOOK GALLERY/LIST SECTION-----
 // generated from scripts.js. to do: re-name classes in this section.
@@ -205,17 +220,6 @@ header p {
 	}	
 }
 
-#authorBio {
-color: green;
-}
-
-p.link-to-goodreads a {
- color: pink;
-}
-
-p.hometown {
-	color: cyan;
-}
 
 
 
