@@ -159,6 +159,10 @@ p {
 // ---------BOOK GALLERY/LIST SECTION-----
 // generated from scripts.js. to do: re-name classes in this section.
 
+.books p {
+	display: none;
+}
+
 #books {
 	width: 100%;
 }
