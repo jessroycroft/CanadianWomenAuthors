@@ -118,16 +118,22 @@ header p {
 		padding: 3%;
 		.rating {
 			float: left;
-			width: 25%;
+			width: 30%;
 		}
 		.sort {
 			float: left;
 			margin-top: 45px;
-			width: 70%;
+			width: 50%;
 			a {
-				padding: 2%;
-				margin-left: 2%;
-				border: 1px solid red;
+				margin: 2%;
+			}
+		}
+		.reselect {
+			float: left;
+			margin-top: 45px;
+			width: 20%;
+			a {
+				margin: 2%;
 			}
 		}
 	}
