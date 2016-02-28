@@ -277,7 +277,6 @@ app.sortBooks = function () {
 
 	$("#showAll").on("click", function (e) {
 		e.preventDefault();
-		$(".books p").hide();
 		$(".star").removeClass("selected");
 		$container.isotope({
 			filter: '*'
