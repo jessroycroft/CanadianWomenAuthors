@@ -116,7 +116,7 @@ header p {
 	display: none;
 	.wrapper {
 		padding: 3%;
-		.rating {
+		.ratingsDiv {
 			float: left;
 			width: 30%;
 		}
@@ -180,10 +180,6 @@ p.hometown {
 
 // ---------BOOK GALLERY/LIST SECTION-----
 // generated from scripts.js. to do: re-name classes in this section.
-
-.books p {
-	display: none;
-}
 
 #books {
 	width: 100%;
