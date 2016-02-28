@@ -159,11 +159,8 @@ app.displayBio = function (bioInformation) {
 	$.each(bioInformation, function (i, info) {
 		var authorProfile = $("<p class='link-to-goodreads'>").html("<a href='" + bioInformation.GoodreadsResponse.author.link + "'>See her Goodreads profile</a>");
 		console.log(bioInformation.GoodreadsResponse.author.link);
-<<<<<<< HEAD
 		var authorHometown = $("<p class='hometown'>").html(bioInformation.GoodreadsResponse.author.hometown);
-=======
-		//var authorHometown = $("<p>").html(bioInformation.GoodreadsResponse.author.hometown);
->>>>>>> ba7216cb5020109389de6646affc874d32b87e3f
+
 		// Author's Goodreads bio
 		var weirdAbout = bioInformation.GoodreadsResponse.author.about;
 		// This is not secure and should not be used but we used it!
@@ -177,41 +174,52 @@ app.displayBio = function (bioInformation) {
 };
 var $container;
 // Display list of author's books
-app.displayBooks = function (soManyBooks) {
+// app.displayBooks = function(soManyBooks){
+// 	$(".filters").show();
+// 	console.log(app.bookArray[8].publication_year);
+// 	$.each(app.bookArray, function(i, item) {
+// 		var title = $("<h2>").html(item.title);
+// 		var rating = $("<p class='rating'>").html("Average rating: <span>" + item.average_rating + "</span>");
+// 		var publicationYear = $("<p class='publicationYear'>").html("Publication year: <span>" + item.publication_year + "</span>")
+// 		var image = $("<img>").attr("src", item.image_url);
+// 		var bookImage = $("<div>").addClass("book-image").append(image);
+// 		var bookSpecs = $("<div>").addClass("book-specs").append(title, rating, publicationYear);
+// 		var galleryItem = $("<div>").addClass("book-gallery").append(bookImage, bookSpecs);
+// 		$("#books").append(galleryItem);
+// 	})
+// };
+app.displayBooks = function () {
+	console.log("entered displayBooks");
 	$(".filters").show();
-	console.log(app.bookArray[8].publication_year);
-	$.each(app.bookArray, function (i, item) {
-		var title = $("<h2>").html(item.title);
-		var rating = $("<p class='rating'>").html("Average rating: <span>" + item.average_rating + "</span>");
-		var publicationYear = $("<p class='publicationYear'>").html("Publication year: <span>" + item.publication_year + "</span>");
-		var image = $("<img>").attr("src", item.image_url);
-		var bookImage = $("<div>").addClass("book-image").append(image);
-		var bookSpecs = $("<div>").addClass("book-specs").append(title, rating, publicationYear);
-		var galleryItem = $("<div>").addClass("book-gallery").append(bookImage, bookSpecs);
-		$("#books").append(galleryItem);
+	// $("#books").empty();
+
+	var bookHtml = $("#authorTemplate").html();
+	var bookTemplate = Handlebars.compile(bookHtml);
+	app.bookArray.forEach(function (data, i) {
+		$("#books").append(bookTemplate(data));
+	});
+
+	$container = $('#books').isotope({
+		itemSelector: '.book-gallery',
+		percentPosition: true,
+		// layoutMode: 'vertical',
+		masonry: {
+			columnWidth: '.book-gallery'
+		},
+		getSortData: {
+			name: '.name',
+			year: '.publicationYear span',
+			number: function number(bookRating) {
+				var rating = $(bookRating).find('.rating span').text();
+				return parseFloat(rating.replace(/[\(\)]/g, ''));
+			} //closes number
+		} //closes getSortData
+	}); // closes $container
+
+	$container.imagesLoaded().progress(function () {
+		$container.isotope('layout');
 	});
 };
-
-$container = $('#books').isotope({
-	itemSelector: '.book-gallery',
-	percentPosition: true,
-	// layoutMode: 'vertical',
-	masonry: {
-		columnWidth: '.book-gallery'
-	},
-	getSortData: {
-		name: '.name',
-		year: '.publicationYear span',
-		number: function number(bookRating) {
-			var rating = $(bookRating).find('.rating span').text();
-			return parseFloat(rating.replace(/[\(\)]/g, ''));
-		} //closes number
-	} //closes getSortData
-}); // closes $container
-
-$container.imagesLoaded().progress(function () {
-	$container.isotope('layout');
-});
 
 app.sortBooks = function () {
 
@@ -257,8 +265,6 @@ app.sortBooks = function () {
 				return parseFloat(number) >= filterValue;
 			} //close filter fn
 		}); //close $container
-
-		app.noResults();
 	});
 
 	$("#showAll").on("click", function (e) {
@@ -268,20 +274,6 @@ app.sortBooks = function () {
 		$container.isotope({
 			filter: '*'
 		});
-	});
-};
-
-app.noResults = function () {
-
-	//arrayOfDisplayBlock = [];
-	$(".book-gallery").each(function () {
-		var displayStatus = $(this).css("display");
-		console.log(displayStatus);
-		if ($(this).css("display") === "block") {
-			console.log("displayblock");
-			//	arrayOfDisplayBlock.push($(this));
-		}
-		//console.log(arrayOfDisplayBlock);
 	});
 };
 
