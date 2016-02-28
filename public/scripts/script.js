@@ -174,7 +174,22 @@ app.displayBio = function (bioInformation) {
 };
 var $container;
 // Display list of author's books
-app.displayBooks = function (soManyBooks) {
+// app.displayBooks = function(soManyBooks){
+// 	$(".filters").show();
+// 	console.log(app.bookArray[8].publication_year);
+// 	$.each(app.bookArray, function(i, item) {
+// 		var title = $("<h2>").html(item.title);
+// 		var rating = $("<p class='rating'>").html("Average rating: <span>" + item.average_rating + "</span>");
+// 		var publicationYear = $("<p class='publicationYear'>").html("Publication year: <span>" + item.publication_year + "</span>")
+// 		var image = $("<img>").attr("src", item.image_url);
+// 		var bookImage = $("<div>").addClass("book-image").append(image);
+// 		var bookSpecs = $("<div>").addClass("book-specs").append(title, rating, publicationYear);
+// 		var galleryItem = $("<div>").addClass("book-gallery").append(bookImage, bookSpecs);
+// 		$("#books").append(galleryItem);
+// 	})
+// };
+app.displayBooks = function () {
+	console.log("entered displayBooks");
 	$(".filters").show();
 	console.log(app.bookArray[8].publication_year);
 	$.each(app.bookArray, function (i, item) {
