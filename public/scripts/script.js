@@ -191,12 +191,19 @@ var $container;
 app.displayBooks = function () {
 	console.log("entered displayBooks");
 	$(".filters").show();
-	// $("#books").empty();
+	console.log(app.bookArray[8].publication_year);
+	$.each(app.bookArray, function (i, item) {
+		var title = $("<h2>").addClass("name").html(item.title);
+		var rating = $("<p class='rating'>").append("Average rating: <span>" + item.average_rating + "</span>");
+		var publicationYear = $("<p class='publicationYear'>").html("Publication year: <span>" + item.publication_year + "</span>");
+		var image = $("<img>").attr("src", item.image_url);
 
-	var bookHtml = $("#authorTemplate").html();
-	var bookTemplate = Handlebars.compile(bookHtml);
-	app.bookArray.forEach(function (data, i) {
-		$("#books").append(bookTemplate(data));
+		var bookImage = $("<div>").addClass("book-image").append(image);
+		var bookSpecs = $("<div>").addClass("book-specs").append(title, rating, publicationYear);
+
+		var galleryItem = $("<div>").addClass("book-gallery").append(bookImage, bookSpecs);
+
+		$("#books").append(galleryItem);
 	});
 
 	$container = $('#books').isotope({
@@ -210,7 +217,7 @@ app.displayBooks = function () {
 			name: '.name',
 			year: '.publicationYear span',
 			number: function number(bookRating) {
-				var rating = $(bookRating).find('.rating span').text();
+				var rating = $(bookRating).find('.rating span').html();
 				return parseFloat(rating.replace(/[\(\)]/g, ''));
 			} //closes number
 		} //closes getSortData
@@ -241,6 +248,7 @@ app.sortBooks = function () {
 
 	$("#sortByPubYear").on("click", function (e) {
 		e.preventDefault();
+		console.log("sort by year");
 		$container.isotope({
 			sortBy: 'year',
 			sortAscending: {
