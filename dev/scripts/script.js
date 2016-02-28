@@ -169,7 +169,7 @@ app.displayBio = function(bioInformation) {
 	$.each(bioInformation, function(i, info) {
 		var authorProfile = $("<p class='link-to-goodreads'>").html("<a href='" + bioInformation.GoodreadsResponse.author.link + "'>See her Goodreads profile</a>");
 		console.log(bioInformation.GoodreadsResponse.author.link);
-		var authorHometown = $("<p class='hometown'>").html(bioInformation.GoodreadsResponse.author.hometown);
+		// var authorHometown = $("<p class='hometown'>").html(bioInformation.GoodreadsResponse.author.hometown);
 
 		// Author's Goodreads bio
 		var weirdAbout = bioInformation.GoodreadsResponse.author.about;
@@ -178,7 +178,7 @@ app.displayBio = function(bioInformation) {
 		$("#authorBio").empty();
 		$("#authorBio").append(authorAbout, authorProfile);
 
-		var hometown = $("<p>").html(bioInformation.GoodreadsResponse.author.hometown);
+		var hometown = $("<p>").html(bioInformation.GoodreadsResponse.author.hometown).addClass("hometown");
 		$(".authorLabel").append(hometown);
 	})
 }
@@ -293,6 +293,9 @@ app.sortBooks = function(){
     	$container.isotope({
     	    filter: '*'
     	});
+    	$("html, body").animate({
+    	   scrollTop: $("#books").offset().top + 0
+    	}, 500);
     });
 }
 
@@ -314,6 +317,7 @@ app.resetSearch = function() {
 			height: 150
 		}, "slow");
 		$(".authorHeading").hide();
+		$(".hometown").remove();
 	})
 };
 
