@@ -3,16 +3,29 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Canadian Women Authors</title>
+	<link rel="icon" 
+      type="image/png" 
+      href="ImagesAuthors/bookIcon.png">
 	<link rel="stylesheet" href="styles/style.css">
 	<link href='https://fonts.googleapis.com/css?family=Quicksand:400,300,700|Dosis:400,300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 	<header>
 		<div class="wrapper">
+			
+				<h1>Canadian Authors</h1>
+				<div class="redLine">
+				</div>
+				<div class="bookIcon">
+					<img src="ImagesAuthors/bookIcon.png" alt="">
+				</div>
+				<p>The True North (strong and free!) has produced some of the world’s best literary talents.</p> 
+				<p>With glowing hearts, we profile five female Canadian authors you ought to know about.</p>
+				
 
-			<h1>Canadian Authors</h1>
-			<p>The True North (strong and free!) has produced some of the world’s best literary talents. With glowing hearts, we profile 5 female Canadian authors you ought to know about. </p>
+			
 
 
 		</div>
@@ -69,15 +82,16 @@
 
 		<div class="wrapper">
 		<!-- 	<h2></h2> -->
-			<div id="authorBio"></div>
-			
+			<div id="authorBio">
+				
+			</div>
 		</div>
 	</section>
 	<section class="filters">
 		<div class="wrapper clearfix">
-			<h2>Refine Results</h2>
+			<!-- <h2>Works</h2> -->
 			<div class="ratingsDiv">
-				<p>Filter by minimum rating</p>
+				<!-- <p>Search Author's works by minimum rating</p> -->
 				<div class="ratingWrap">
 					<i class="fa fa-star fa-2x star oneStar" data-rating="1.00"></i>
 					<i class="fa fa-star fa-2x star twoStar" data-rating="2.00"></i>
@@ -91,10 +105,12 @@
                 <a href="#" id="sortByRating">Sort by Rating</a>
                 <a href="#" id="sortByTitle">Sort by Title</a>
                 <a href="#" id="sortByPubYear">Sort by Publication Year</a>
+
             </div>
             <div class="reselect">
            		<a href="#" class="reset">Select Another Author</a>
             </div>
+           
 		</div>
 	</section>
 	<section class="books">

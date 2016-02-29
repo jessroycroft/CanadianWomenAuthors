@@ -166,7 +166,7 @@ app.displayBio = function (bioInformation) {
 		// This is not secure and should not be used but we used it!
 		var authorAbout = $("<p>").html(weirdAbout).text();
 		$("#authorBio").empty();
-		$("#authorBio").append(authorProfile, authorAbout);
+		$("#authorBio").append(authorAbout, authorProfile);
 
 		var hometown = $("<p>").html(bioInformation.GoodreadsResponse.author.hometown);
 		$(".authorLabel").append(hometown);
