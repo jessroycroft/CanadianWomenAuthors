@@ -25,7 +25,7 @@ app.getAuthorID = function () {
 			xmlToJSON: true
 		}
 	}).then(function (data) {
-		console.log(data);
+		// console.log(data);
 		app.authorID = data.GoodreadsResponse.author.id;
 		// console.log(app.authorID);
 		app.getAuthorInfo();
@@ -55,7 +55,7 @@ app.promise = function () {
 		} else {
 				app.page++;
 				app.getBookList();
-				console.log(data.GoodreadsResponse.author.books.end);
+				// console.log(data.GoodreadsResponse.author.books.end);
 			};
 	});
 };
@@ -74,7 +74,7 @@ app.getAuthorInfo = function () {
 			xmlToJSON: true
 		}
 	}).then(function (data) {
-		console.log(data);
+		// console.log(data);
 		app.displayBio(data);
 	});
 };
@@ -89,7 +89,7 @@ app.selectAuthor = function () {
 		e.preventDefault();
 		app.author = $(this).prev().val();
 		app.getAuthorID();
-		console.log(app.author);
+		// console.log(app.author);
 		$(this).siblings().hide();
 		//$(this).find("p").hide();
 		$(this).find("p").css("font-size", "24px");
@@ -123,7 +123,7 @@ app.getBookList = function () {
 			xmlToJSON: true
 		}
 	}).then(function (data) {
-		console.log(data);
+		// console.log(data);
 		var books = data.GoodreadsResponse.author.books.book;
 		books.forEach(function (val, i) {
 			app.allBookArray.push(val);
@@ -147,18 +147,17 @@ app.compareBookList = function (bookList) {
 	} else {
 			app.page++;
 			app.getBookList();
-			console.log(bookList.GoodreadsResponse.author.books.end);
-			console.log(bookList);
+			// console.log(bookList.GoodreadsResponse.author.books.end);
+			// console.log(bookList);
 		};
 };
 
 // Display author's biography information
 app.displayBio = function (bioInformation) {
-	console.log("hi");
-	console.log(bioInformation);
+	// console.log(bioInformation);
 	$.each(bioInformation, function (i, info) {
 		var authorProfile = $("<p class='link-to-goodreads'>").html("<a href='" + bioInformation.GoodreadsResponse.author.link + "'>See her Goodreads profile</a>");
-		console.log(bioInformation.GoodreadsResponse.author.link);
+		// console.log(bioInformation.GoodreadsResponse.author.link);
 		// var authorHometown = $("<p class='hometown'>").html(bioInformation.GoodreadsResponse.author.hometown);
 
 		// Author's Goodreads bio
@@ -189,9 +188,14 @@ var $container;
 // 	})
 // };
 app.displayBooks = function () {
-	console.log("entered displayBooks");
+
+	$("html, body").animate({
+		scrollTop: $("#authorBio").offset().top - 30
+	}, 500);
+
+	// console.log("entered displayBooks")
 	$(".filters").show();
-	console.log(app.bookArray[8].publication_year);
+	// console.log(app.bookArray[8].publication_year);
 	$.each(app.bookArray, function (i, item) {
 		var title = $("<h2>").addClass("name").html(item.title);
 		var rating = $("<p class='rating'>").append("Average rating: <span>" + item.average_rating + "</span>");
@@ -237,7 +241,7 @@ app.sortBooks = function () {
 
 	$("#sortByRating").on("click", function (e) {
 		e.preventDefault();
-		console.log("sort by rating click");
+		// console.log("sort by rating click");
 		$container.isotope({
 			sortBy: 'number',
 			sortAscending: {
@@ -248,7 +252,7 @@ app.sortBooks = function () {
 
 	$("#sortByPubYear").on("click", function (e) {
 		e.preventDefault();
-		console.log("sort by year");
+		// console.log("sort by year");
 		$container.isotope({
 			sortBy: 'year',
 			sortAscending: {
@@ -263,7 +267,7 @@ app.sortBooks = function () {
 		}
 		$(this).addClass("selected").prevAll().addClass("selected");
 		var filterValue = $(this).data('rating');
-		console.log(filterValue);
+		// console.log(filterValue);
 
 		$container.isotope({
 			// filter element with numbers greater than filterValue
@@ -328,6 +332,5 @@ app.init = function () {
 };
 
 $(function () {
-	console.log("running");
 	app.init();
 });
