@@ -191,7 +191,8 @@ var $container;
 app.displayBooks = function () {
 	console.log("entered displayBooks");
 	$(".filters").show();
-	console.log(app.bookArray[8].publication_year);
+	console.log(app.bookArray);
+	console.log(app.bookArray[7].publication_year);
 	$.each(app.bookArray, function (i, item) {
 		var title = $("<h2>").addClass("name").html(item.title);
 		var rating = $("<p class='rating'>").append("Average rating: <span>" + item.average_rating + "</span>");
